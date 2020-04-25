@@ -32,13 +32,12 @@
              ((= (funcall *fn*) (length lista)) lista) ;;condição de paragem se for 77
              (t (baralhar (setf lista (cons n (remover-se #'(lambda (x) (= x n)) lista))))))))
 
-
 (defun remover-numero-089 (n)
  "Função que recebe um numero e verifica se existe numero com 0, 8 e 9 e retorn t ou nil"
     (let ((p (primeiro-digito n)) 
           (u (ultimo-digito n)))
           (cond
-             ((or (<= n 10) (= u 0)) T)
+             ((or (<= n 10) (> n 77) (= u 0)) T)
              ((or (= p 8) (= u 8)) T)
              ((or (= p 9) (= u 9)) T)
              (T NIL))))
