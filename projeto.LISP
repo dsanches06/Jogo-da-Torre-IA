@@ -3,19 +3,22 @@
 ;===========================================================================
 
 ;;; Função para mostrar o tabuleiro
-(defun imprime-tabuleiro (tabuleiro)
+(defun mostrar-tabuleiro (tabuleiro)
   "Mostra o tabuleiro"
   (terpri)
   (mapcar (lambda (x) (format T "~@T~@T~@T~@T~A ~%" x)) tabuleiro)
   (format NIL ""))
 
 ;;; Função para imprimir tabuleiro no ficheiro
-(defun imprime-tabuleiro-ficheiro (tabuleiro ficheiro)
+(defun mostrar-tabuleiro-ficheiro (tabuleiro file)
   "permite imprimir tabuleiro no ficheiro"
-  (format ficheiro "~%")
-  (mapcar (lambda (x) (format ficheiro "	~A ~%" x)) tabuleiro)
+  (format file "~%")
+  (mapcar (lambda (x) (format file "	~A ~%" x)) tabuleiro)
   (format NIL ""))
 
+(defun mostrar-movimentos (tabuleiro movimentos)
+  "Mostra os movimentos do tabuleiro"
+	(mapcar (lambda (x) (mostrar-tabuleiro (+ x 1))) (obter-movimentos tabuleiro movimentos)))
 ;===========================================================================
 ;       FUNÇÕES DE LEITURA E ESCRITA
 ;===========================================================================
@@ -49,13 +52,13 @@
   (format T "~@T~@T~@T~@T   |    ESTATISTICAS GERAIS    |~%")
   (format T "~@T~@T~@T~@T   +===========================+~%")
   (mostrar-objetivo problema T)
-  (format T "	~A" (imprime-tabuleiro tabuleiro))
+  (format T "	~A" (mostrar-tabuleiro tabuleiro))
   (format T "~%      --- TABULEIRO INICIAL ---~%" )
-  (format T "	~A" (imprime-tabuleiro (tabuleiro-inicial)))
+  (format T "	~A" (mostrar-tabuleiro tabuleiro))
   (format T "~%      --- MOVIMENTOS ---~%" )
  ;;mostrar movimento
   (format T "~%      --- TABULEIRO FINAL ---~%" )
-  (format T "	~A" (imprime-tabuleiro tabuleiro))
+  (format T "	~A" (mostrar-tabuleiro tabuleiro))
   (format T "~%      --- RESULTADO ---~%")
   (format T "        Problema: ~A ~%" problema) 
   (format T "        Algoritmo: ~A ~%" algoritmo) 
@@ -69,8 +72,8 @@
   (format T "~@T~@T~@T~@T   +===========================+~%")
   (format T "~@T~@T~@T~@T   |     FIM DA ESTATISTICA    |~%")
   (format T "~@T~@T~@T~@T   +===========================+~%~%")
-
-   (with-open-file (file (concatenate 'string (diretoria-atual) "resultados.dat")
+ 
+  (with-open-file (file (concatenate 'string (diretoria-atual) "resultados.dat")  
 		:direction :output
 		:if-exists :append
 		:if-does-not-exist :create)
@@ -78,13 +81,13 @@
                 (format file "~@T~@T~@T~@T   |    ESTATISTICAS GERAIS    |~%")
                 (format file "~@T~@T~@T~@T   +===========================+~%")
                 (mostrar-objetivo problema file)
-                (format file "	~A" (imprime-tabuleiro-ficheiro tabuleiro file))
+                (format file "	~A" (mostrar-tabuleiro-ficheiro tabuleiro file))
                 (format file "~%      --- TABULEIRO INICIAL ---~%" )
-                (format file "	~A" (imprime-tabuleiro-ficheiro (tabuleiro-inicial) file))
+                (format file "	~A" (mostrar-tabuleiro-ficheiro tabuleiro file))
                 (format file "~%      --- MOVIMENTOS ---~%" )
                 ;;mostrar movimento
                 (format file "~%      --- TABULEIRO FINAL ---~%" )
-                (format file "	~A" (imprime-tabuleiro-ficheiro tabuleiro file))
+                (format file "	~A" (mostrar-tabuleiro-ficheiro tabuleiro file))
                 (format file "~%      --- RESULTADO ---~%")
                 (format file "        Problema: ~A ~%" problema) 
                 (format file "        Algoritmo: ~A ~%" algoritmo) 
@@ -99,7 +102,7 @@
                 (format file "~@T~@T~@T~@T   |     FIM DA ESTATISTICA    |~%")
                 (format file "~@T~@T~@T~@T   +===========================+~%~%")
 		(format file "================================================================================================================~%~%")))
-
+             
 ;===========================================================================
 ;       FUNÇÕES PARA INTER-ACÇÃO DO UTILIZADOR
 ;===========================================================================
@@ -172,18 +175,18 @@
 (defun mostrar-objetivo (problema tipo) 
   "Permite mostrar o objetivo do problema para escrita em consola e file"
   (cond
-     ((equal problema 'A) (format tipo "~%~%      --- PROBLEMA ~A: Objectivo 100 pontos ---~%~%" problema))
-     ((equal problema 'B) (format tipo "~%~%      --- PROBLEMA ~A: Objectivo 200 pontos ---~%~%" problema))
-     ((equal problema 'C) (format tipo "~%~%      --- PROBLEMA ~A: Objectivo 300 pontos ---~%~%" problema))
-     ((equal problema 'D) (format tipo "~%~%      --- PROBLEMA ~A: Objectivo 425 pontos ---~%~%" problema))
-     ((equal problema 'E) (format tipo "~%~%      --- PROBLEMA ~A: Objectivo 525 pontos ---~%~%" problema))
-     ((equal problema 'F) (format tipo "~%~%      --- PROBLEMA ~A: Objectivo 1000 pontos ---~%~%" problema))))		
+     ((equal problema 'A) (format tipo "~%      --- PROBLEMA ~A: Objectivo 100 pontos ---~%" problema))
+     ((equal problema 'B) (format tipo "~%      --- PROBLEMA ~A: Objectivo 200 pontos ---~%" problema))
+     ((equal problema 'C) (format tipo "~%      --- PROBLEMA ~A: Objectivo 300 pontos ---~%" problema))
+     ((equal problema 'D) (format tipo "~%      --- PROBLEMA ~A: Objectivo 425 pontos ---~%" problema))
+     ((equal problema 'E) (format tipo "~%      --- PROBLEMA ~A: Objectivo 525 pontos ---~%" problema))
+     ((equal problema 'F) (format tipo "~%      --- PROBLEMA ~A: Objectivo 1000 pontos ---~%" problema))))		
 		
 ;;; Função que apresenta a escolha do algoritimo a usar
 (defun escolher-algoritmo (tabuleiro problema)
   "Permite escolher o algoritimo para resolver o problema"
   (mostrar-objetivo problema T)
-  (format T "~A" (imprime-tabuleiro tabuleiro))
+  (format T "~A" (mostrar-tabuleiro tabuleiro))
   (terpri)
   (format T "~@T~@T~@T~@T +===============================+~%")
   (format T "~@T~@T~@T~@T |        Lista de Algoritmos    |~%")
