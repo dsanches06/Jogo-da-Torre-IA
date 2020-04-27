@@ -24,8 +24,6 @@
     )
 )
 
-
-
 (defun teste()
  "Função para para tabuleiro formatado"   
  (mostrar-tabuleiro (tabuleiro-inicial)))
@@ -36,7 +34,7 @@
 
 (defun gerar-tabuleiro-aux ()
  "Função auxiliar para gerar e baralhar o tabuleiro com casas de 0 a 77"
- (tabuleiro-aleatorio (baralhar (inteiros-ate-77))))
+ (tabuleiro-aleatorio (baralhar (remover-numero-089 (inteiros-ate-77)))))
 
 (defun tabuleiro-aleatorio (lista &optional(n 7))
   "Função que recebe uma é numa lista e criar sublistas de n elementos recorrendo à função 
@@ -60,9 +58,9 @@
 ;;------------------------------------------------------------------------------------------------------
 ;;  GERAR E BARALHAR LISTA COM REMOÇÃO DE NUMEROS COM 0,8 e 9   
 ;;------------------------------------------------------------------------------------------------------
-(defun inteiros-ate-77  (&optional(n 50))
+(defun inteiros-ate-77  (&optional(n 78))
 "Função que recebe um número positivo n e cria uma lista com todos os números entre 11 (inclusivé) e o número passado como argumento (exclusivé). Por default o n é 77"
-    (do* ((i 1 (+ i 1));; começa em 0
+    (do* ((i 11 (+ i 1));; começa em 11
           (resultado (list i) (cons i resultado)))
           ((= i (- n 1)) resultado)));; até n - 1 = 77
 
@@ -71,13 +69,8 @@
    Faça uma função recursiva e utilize a função nth, a função random e a função 
    remover-se em que a função deve remover o número da lista igual ao encontrado aleatoriamente"
    (let ((n (nth (random (length lista)) lista)))
-             ;;(format t "~@T~@T~@T~@Tentrou 1 com: ~A ~%" n)
          (cond 
              ((= (funcall *fn*) (length lista)) lista) ;;condição de paragem se for 99
-             ;;((let ((y (numero-com-089 n)))
-               ;;    (format t "~@T~@T~@T~@T~@T~@Tsaiu 1 com: ~A ~%~%" y)
-                 ;;  (if (equal y 'T)
-                   ;;    (baralhar (setf lista (remover-se #'(lambda (x) (= x n)) lista))))))
              (t(baralhar (setf lista (cons n (remover-se #'(lambda (x) (= x n)) lista))))))))
 
 ;;------------------------------------------------------------------------------------------------------
@@ -137,12 +130,14 @@
  "Função que recebe um numero e verifica se existe numero com 0, 8 e 9 e retorn t ou nil"
     (let ((x (ultimo-digito n)))
           (cond
-              ((or (= x 0) (= x 8) (= x 9)) t)
+              ((or (= x 0) (= x 8) (= x 9)) T)
              (T NIL))))
 
 (defun remover-numero-089 (tabuleiro)
- "para remover os numeros que terminam com 0, 8 e 9"
-)
+ "Função que recebe um tabuleiro para remover os numeros que terminam com 0, 8 e 9"
+   (loop for n in tabuleiro
+	if (equal (numero-com-089 n) 'NIL)
+      collect n))
 
 ;;------------------------------------------------------------------------------------------------------
 ;;   REGRAS DE NUMEROS-DUPLOS
@@ -181,7 +176,6 @@
   ;;obter a posicao final da peça (obter o valor da casa antes de movimentar)
   (let* ((peca (posicao-cavalo tabuleiro))
          (valor (celula (first peca)(second peca) tabuleiro)))
-
      (format t "p: ~A, valor: ~A, p0: ~A, p1: ~A ~%" peca valor (first peca) (second peca))
   
 ))
