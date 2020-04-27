@@ -11,19 +11,6 @@
 ;;------------------------------------------------------------------------------------------------------
 ;;   TABULEIRO 7x7
 ;;------------------------------------------------------------------------------------------------------
-(defun tabuleiro-jogado ()
-"Tabuleiro de teste igual ao anterior mas tendo sido colocado o cavalo na posição: i=0 e j=0"
-  '(
-    (T 25 54 89 21 8 36) 
-    (78 47 56 23 5 NIL 13) 
-    (0 27 17 83 34 93 74) 
-    (69 9 77 95 55 39 91) 
-    (24 15 22 86 1 11 68) 
-    (81 48 32 2 64 16 50) 
-    (99 51 6 18 53 28 7) 
-    )
-)
-
 (defun teste()
  "Função para para tabuleiro formatado"   
  (mostrar-tabuleiro (tabuleiro-inicial)))
@@ -34,7 +21,7 @@
 
 (defun gerar-tabuleiro-aux ()
  "Função auxiliar para gerar e baralhar o tabuleiro com casas de 0 a 77"
- (tabuleiro-aleatorio (baralhar (remover-numero-089 (inteiros-ate-77)))))
+ (tabuleiro-aleatorio (baralhar (gerar-lista-sem-numero-089))))
 
 (defun tabuleiro-aleatorio (lista &optional(n 7))
   "Função que recebe uma é numa lista e criar sublistas de n elementos recorrendo à função 
@@ -45,25 +32,22 @@
 
 (defun linha (i tabuleiro)
   "Função que recebe um índice e o tabuleiro e retorna uma lista que representa esta linha"
-  (nth i tabuleiro))
+   (cond ((or (< i 0) (>= i (length tabuleiro))) NIL)
+        (t (nth i tabuleiro))))
 	
 (defun celula (i j tabuleiro)
   "Função que recebe dois índices e o tabuleiro e retorna o valor presente nessa célula do tabuleiro"
-  (nth j (linha i tabuleiro)))
+   (linha i (coluna j tabuleiro)))
 
 (defun coluna (j tabuleiro)
   "Função que recebe um índice e o tabuleiro e retorna uma lista que representa esta coluna"
-  (mapcar #'(lambda (linha &aux (n-column (nth j linha))) n-column) tabuleiro))	
+  (mapcar #'(lambda(linha) 
+             (cond ((or (< j 0) (>= j (length linha))) NIL)
+                   (t (nth j linha)))) tabuleiro))
 
+;------------------------------------------------------------------------------------------------------
+;;   FUNÇÕES AUXILIARES
 ;;------------------------------------------------------------------------------------------------------
-;;  GERAR E BARALHAR LISTA COM REMOÇÃO DE NUMEROS COM 0,8 e 9   
-;;------------------------------------------------------------------------------------------------------
-(defun inteiros-ate-77  (&optional(n 78))
-"Função que recebe um número positivo n e cria uma lista com todos os números entre 11 (inclusivé) e o número passado como argumento (exclusivé). Por default o n é 77"
-    (do* ((i 11 (+ i 1));; começa em 11
-          (resultado (list i) (cons i resultado)))
-          ((= i (- n 1)) resultado)));; até n - 1 = 77
-
 (defun baralhar (lista)
   "Função que recebe uma lista e irá mudar aleatoriamente os seus números. 
    Faça uma função recursiva e utilize a função nth, a função random e a função 
@@ -73,9 +57,7 @@
              ((= (funcall *fn*) (length lista)) lista) ;;condição de paragem se for 99
              (t(baralhar (setf lista (cons n (remover-se #'(lambda (x) (= x n)) lista))))))))
 
-;;------------------------------------------------------------------------------------------------------
-;;   FUNÇÕES AUXILIARES
-;;------------------------------------------------------------------------------------------------------
+
 (defun primeiro-digito (n)
  "Função que recebe um numero e retorna o primeiro digito"
    (cond
@@ -107,16 +89,16 @@
         ((= i 0) (cons valor (cdr tabuleiro)))
         (t (cons (car tabuleiro) (substituir-posicao-aux (- i 1) (cdr tabuleiro) valor)))))
 
-(defun posicao-cavalo-aux (cavalo tabuleiro &optional (inicio 0))     
+(defun posicao-peca-aux (peca tabuleiro &optional (inicio 0))     
   (cond ((null tabuleiro) nil)
         ((atom (first tabuleiro))
-         (if (eql cavalo (first tabuleiro))
+         (if (eql peca (first tabuleiro))
              (list inicio)
-             (posicao-cavalo-aux cavalo (rest tabuleiro) (1+ inicio))))
-        (t (let ((posicao (posicao-cavalo-aux cavalo (first tabuleiro) 0)))
+             (posicao-peca-aux peca (rest tabuleiro) (1+ inicio))))
+        (t (let ((posicao (posicao-peca-aux peca (first tabuleiro) 0)))
              (if posicao
                  (cons inicio posicao)
-                 (posicao-cavalo-aux cavalo (rest tabuleiro) (1+ inicio)))))))
+                 (posicao-peca-aux peca (rest tabuleiro) (1+ inicio)))))))
 
 (defun posicao-destino-cavalo ()
  "Função para retorna a casa do destino da peça para aplicação de regras"
@@ -124,7 +106,7 @@
 )
 
 ;;------------------------------------------------------------------------------------------------------
-;;   NUMEROS COM 0, 8  e 9
+;;   GERAR LISTA SEM NUMEROS  0, 8  e 9
 ;;------------------------------------------------------------------------------------------------------
 (defun numero-com-089 (n)
  "Função que recebe um numero e verifica se existe numero com 0, 8 e 9 e retorn t ou nil"
@@ -133,9 +115,9 @@
               ((or (= x 0) (= x 8) (= x 9)) T)
              (T NIL))))
 
-(defun remover-numero-089 (tabuleiro)
+(defun gerar-lista-sem-numero-089 ()
  "Função que recebe um tabuleiro para remover os numeros que terminam com 0, 8 e 9"
-   (loop for n in tabuleiro
+   (loop for n from 11 to 77
 	if (equal (numero-com-089 n) 'NIL)
       collect n))
 
@@ -183,12 +165,16 @@
 ;;------------------------------------------------------------------------------------------------------
 ;;   PEÇA CAVALO ("T")
 ;;------------------------------------------------------------------------------------------------------
-(defun posicao-cavalo (tabuleiro)
+(defun posicao-peca (tabuleiro)
   "Função que recebe o tabuleiro e devolve a posição (i j) em que se encontra o cavalo. 
   Caso o cavalo não se encontre no tabuleiro deverá ser retornado NIL"
-  (posicao-cavalo-aux 'T tabuleiro))
+  (posicao-peca-aux 'T tabuleiro))
 
-(defun mover-cavalo (x y dx dy tabuleiro)
+(defun obter-peca-tabuleiro (tabuleiro)
+ "Função que procura a posicao de cavalo no tabuleiro e retorna o seu valor"
+  (celula (first (posicao-peca tabuleiro)) (second (posicao-peca tabuleiro)) tabuleiro))
+
+(defun mover-peca (x y dx dy tabuleiro)
   "Função que irá mover o cavalo"
   (let ((novo-tabuleiro (copy-tree tabuleiro))
         (novo-x (+ x dx))
@@ -239,6 +225,41 @@
 
 
 ;;------------------------------------------------------------------------------------------------------
+;;   CONSTRUTOR
+;;------------------------------------------------------------------------------------------------------
+(defun criar-no (estado pecas &optional (profundidade 0) (heuristica 0) (f 0) (pai NIL))
+ "Cria uma lista que representa um no que tem um estado. Este no pode tambem ter 
+  uma profunidade, heuristica, f e um no que o gerou"
+  (list estado pecas profundidade heuristica f pai))
+
+;;------------------------------------------------------------------------------------------------------
+;;   METODOS SELECTORES (GETTERS)
+;;------------------------------------------------------------------------------------------------------
+(defun no-estado (no)
+ "Função que retorna o estado de no"
+  (first no))
+
+(defun no-peca (no)
+ "Função que retorna o numero de pontos da peça de no"
+  (second no))
+
+(defun no-profundidade (no)
+  "Funcao que retorna a profundidade de um no"
+  (third no))
+
+(defun no-heuristica (no)
+  "Funcao que retorna a heuristica de um no"
+  (fourth no))
+
+(defun no-f (no)
+  "Funcao que retorna o f de um no"
+  (fifth no))
+
+(defun no-pai (no)
+  "Funcao que retorna o no gerador de um determinado no"
+  (sixth no))
+
+;;------------------------------------------------------------------------------------------------------
 ;;   OPERADORES
 ;;------------------------------------------------------------------------------------------------------
 (defun CIMA-ESQUERDA (x y tabuleiro) ;; mov cima esquerda
@@ -246,7 +267,7 @@
 , ou seja, o movimento que leva o cavalo para a casa de valor 40"
    (cond
        ((equal (validar-movimento (- x 1) (- y 2) tabuleiro) 0) 
-        (mover-cavalo x y -1 -2 tabuleiro))
+        (mover-peca x y -1 -2 tabuleiro))
        (T nil)))
 
 (defun CIMA-DIREITA (x y tabuleiro) ;; mov cima direita
@@ -254,7 +275,7 @@
 , ou seja, o movimento que leva o cavalo para a casa de valor 30"
    (cond
        ((equal (validar-movimento (+ x 1) (- y 2) tabuleiro) 0) 
-        (mover-cavalo x y 1 -2 tabuleiro))
+        (mover-peca x y 1 -2 tabuleiro))
        (T nil)))
 
 (defun DIREITA-CIMA (x y tabuleiro) ;; mov direita cima
@@ -262,7 +283,7 @@
 , ou seja, o movimento que leva o cavalo para a casa de valor 70"
    (cond
        ((equal (validar-movimento (+ x 2) (- y 1) tabuleiro) 0) 
-	(mover-cavalo x y 2 -1 tabuleiro))
+	(mover-peca x y 2 -1 tabuleiro))
        (T nil)))
 
 (defun DIREITA-BAIXO (x y tabuleiro) ;; mov direita baixo
@@ -270,14 +291,14 @@
 , ou seja, o movimento que leva o cavalo para a casa de valor 80"
    (cond
        ((equal (validar-movimento (+ x 1) (+ y 1) tabuleiro) 0) 
-	(mover-cavalo x y 2 1 tabuleiro))
+	(mover-peca x y 2 1 tabuleiro))
        (T nil)))
 
 (defun BAIXO-DIREITA (x y tabuleiro) ;; mov baixo direita
 "Função que recebe o tabuleiro e movimenta o cavalo para a posição 2 linhas abaixo e uma coluna ao lado direito, ou seja, o movimento que leva o cavalo para a casa de valor 10"
   (cond
       ((equal (validar-movimento (+ x 1) (+ y 2) tabuleiro) 0)
-       (mover-cavalo x y 1 2 tabuleiro))
+       (mover-peca x y 1 2 tabuleiro))
      (T nil)))
 
 (defun BAIXO-ESQUERDA (x y tabuleiro) ;; mov baixo esquerda
@@ -285,7 +306,7 @@
 , ou seja, o movimento que leva o cavalo para a casa de valor 20"
    (cond
        ((equal (validar-movimento (- x 1) (+ y 2) tabuleiro) 0) 
-        (mover-cavalo x y -1 2 tabuleiro))
+        (mover-peca x y -1 2 tabuleiro))
        (T nil)))
 
 (defun ESQUERDA-BAIXO (x y tabuleiro) ;; mov esquerda baixo
@@ -293,7 +314,7 @@
 , ou seja, o movimento que leva o cavalo para a casa de valor 50"
    (cond 
        ((equal (validar-movimento (- x 2) (+ y 1) tabuleiro) 0) 
-	(mover-cavalo x y -2 1 tabuleiro))
+	(mover-peca x y -2 1 tabuleiro))
        (T nil)))
 
 (defun ESQUERDA-CIMA (x y tabuleiro) ;;mov esquerda cima
@@ -301,56 +322,76 @@
 , ou seja, o movimento que leva o cavalo para a casa de valor 60"
    (cond
        ((equal (validar-movimento (- x 2) (- y 1) tabuleiro) 0) 
-	(mover-cavalo x y -2 -1 tabuleiro))
+	(mover-peca x y -2 -1 tabuleiro))
        (T nil)))
 
-;;------------------------------------------------------------------------------------------------------
-;;   FUNÇÕES DE CÁLCULO DE HEURISTICAS
-;;------------------------------------------------------------------------------------------------------
-(defun heuristica (tabuleiroAtual tabuleiroSolucao tipoHeuristica)
- "Calcula a heuristica usando as funções auxiliares"
-    (print tabuleiroAtual) (print tabuleiroSolucao)
-    (cond
-	((equal tipoHeuristica 'heuristica1) 1);;falta heuristica a usar
-	((equal tipoHeuristica 'heuristica2) 2)
-	(T 0)))
-
-
-;;------------------------------------------------------------------------------------------------------
-;;   NODE, MOV e SUCESSORES
-;;------------------------------------------------------------------------------------------------------
-(defun construir-no (mov x y tabuleiro noPai tipoHeuristica)
- "Constroi um nó a partir dos dados recebidos"
-  (format t "	~A ~A ~A ~A ~A ~A ~%" mov x y tabuleiro noPai tipoHeuristica)
-
-)
-;;------------------------------------------------------------------------------------------------------
-;;   MOVIMENTOS
-;;------------------------------------------------------------------------------------------------------
-(defun movimento (mov no tipoHeuristica)
-"Função movimento"
-  (format t "	~A ~A ~A ~%" mov no tipoHeuristica)
-
-)
-
-(defun obter-movimentos (tabuleiro mov)
-"lista de tabuleiros com as jogadas, desde o tabuleiro inicial até ao final"
-	(cond			
-		((null (cdr mov)) nil)
-		(T 
-			(cons 
-				(funcall (nth 0 (car mov)) (nth 1 (car mov)) (nth 2 (car mov)) tabuleiro) 
-				(obter-movimentos (funcall (nth 0 (car mov)) (nth 1 (car mov)) (nth 2 (car mov)) tabuleiro) (cdr mov))))))
+(defun operadores ()
+  "Funcao que lista todos os operadores existentes no dominio do problema"
+  (list 'CIMA-ESQUERDA 'CIMA-DIREITA 'DIREITA-CIMA 'DIREITA-BAIXO 'BAIXO-DIREITA 'BAIXO-ESQUERDA 'ESQUERDA-BAIXO 'ESQUERDA-CIMA))
 
 ;;------------------------------------------------------------------------------------------------------
 ;;  SUCESSORES
 ;;------------------------------------------------------------------------------------------------------
-(defun gerar-sucessores (no tipoHeuristica)
- "Função que recebe o nó e tipo de heuristica e lista com todos os sucessores possiveis, 
-  até um máximo de 32 ( (noSucessor1) (noSucessor2) ... (noSucessor32) )"
-  (apply #'append
-		(mapcar #' 
-			(lambda (x) (funcall 'movimento x no tipoHeuristica))
-			'(CIMA-ESQUERDA CIMA-DIREITA DIREITA-CIMA DIREITA-BAIXO 
-                          BAIXO-DIREITA BAIXO-ESQUERDA ESQUERDA-BAIXO ESQUERDA-CIMA))))
+(defun gerar-sucessores (no operadores algoritmo heuristica &optional (profundidade NIL))
+  "Funcao que devolve a lista de todos os sucessores de um determinado no passado como argumento"
+  (cond
+      ((equal algoritmo 'dfs)
+       (cond
+           ;So se aplica os sucessores caso a profundidade do no seja inferior a profundidade maxima
+           ((>= (no-profundidade no) profundidade) NIL)  
+           (T (apply #'append (mapcar #'(lambda(operador)
+                                    (aplicar-operador-no no operador heuristica)) operadores)))))
+     (T (apply #'append (mapcar #'(lambda(operador)
+                                  (aplicar-operador-no no operador heuristica)) operadores)))))
 
+
+(defun aplicar-operador-no (no operador heuristica)
+  "Funcao que aplica apenas um operador a um determinado no. Consoante o operador passado por argumento esta 
+   funcao ira determinar as jogadas possiveis para esse operador e ira criar um no 
+   (um sucessor) para cada uma dessas jogadas possives"
+   (format t "operador: ~A~%" operador)
+  (let ((jogadas-possiveis 
+	                   (cond
+                              ((or (equal operador 'CIMA-ESQUERDA)
+                                   (equal operador 'CIMA-DIREITA)
+                                   (equal operador 'DIREITA-CIMA)
+                                   (equal operador 'DIREITA-BAIXO)
+                                   (equal operador 'BAIXO-DIREITA)
+                                   (equal operador 'BAIXO-ESQUERDA)
+                                   (equal operador 'ESQUERDA-BAIXO)
+                                   (equal operador 'ESQUERDA-CIMA))
+                               (jogadas-possiveis (no-estado no))))))
+     
+      (mapcar #'(lambda (jogada)
+                     (let* ((estado (funcall operador (first jogada) (second jogada) (no-estado no)))
+                            (pecas-novas NIL)
+                            (heuristica-novo-no (funcall heuristica estado pecas-novas))
+                            (profundidade-novo-no (1+ (no-profundidade no)))
+                            (custo-novo-no (+ profundidade-novo-no heuristica-novo-no)))
+                        (criar-no estado pecas-novas profundidade-novo-no heuristica-novo-no custo-novo-no no)
+					)) jogadas-possiveis)))
+
+(defun jogadas-possiveis (tabuleiro)
+  "Funcao que determina todas as jogadas possiveis para um tipo de 
+   peca num determinado tabuleiro, devolvendo-as numa lista"
+   ;;obter posicao do cavalo e obter o valor celula  (obter-peca-tabuleiro tabuleiro)
+   ;; verificar se existe casas vazias ou não
+   ;; determinar as possiveis jogadas
+  ;;(format t "peça: ~A <-> posicao: ~A ~%" (obter-peca-tabuleiro tabuleiro) (posicao-peca tabuleiro))
+
+)
+
+(defun jogada-in-jogadas-possiveis-p (jogada tabuleiro)
+  "Funcao que verifica se uma determinada jogada existe na lista de jogadas possiveis para a peca passada por argumento"
+  (let ((jogadas-possiveis (funcall #'jogadas-possiveis tabuleiro)))
+        (eval (cons 'or (mapcar #'(lambda (jogada-possivel) 
+                                         (cond
+                                             ((equal jogada-possivel jogada) T)
+                                             (T nil))) jogadas-possiveis)))))
+;;------------------------------------------------------------------------------------------------------
+;;   FUNÇÕES DE CÁLCULO DE HEURISTICAS
+;;------------------------------------------------------------------------------------------------------
+(defun heuristica (tabuleiro &optional (peca NIL))
+ "Calcula a heuristica usando as funções auxiliares"
+
+)

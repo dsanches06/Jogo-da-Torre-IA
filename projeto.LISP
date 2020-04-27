@@ -1,4 +1,4 @@
-;===========================================================================
+ ;===========================================================================
 ;       FUNÇÕES PARA CRIAR E MOSTRA OS DADOS DO TABULEIRO
 ;===========================================================================
 
@@ -54,7 +54,7 @@
   (mostrar-objetivo problema T)
   (format T "	~A" (mostrar-tabuleiro tabuleiro))
   (format T "~%      --- TABULEIRO INICIAL ---~%" )
-  (format T "	~A" (mostrar-tabuleiro tabuleiro))
+  (format T "	~A" (mostrar-tabuleiro (tabuleiro-inicial)))
   (format T "~%      --- MOVIMENTOS ---~%" )
  ;;mostrar movimento
   (format T "~%      --- TABULEIRO FINAL ---~%" )
