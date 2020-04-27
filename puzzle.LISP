@@ -89,16 +89,16 @@
         ((= i 0) (cons valor (cdr tabuleiro)))
         (t (cons (car tabuleiro) (substituir-posicao-aux (- i 1) (cdr tabuleiro) valor)))))
 
-(defun posicao-peca-aux (peca tabuleiro &optional (inicio 0))     
+(defun posicao-aux (casa tabuleiro &optional (inicio 0))     
   (cond ((null tabuleiro) nil)
         ((atom (first tabuleiro))
-         (if (eql peca (first tabuleiro))
+         (if (eql casa (first tabuleiro))
              (list inicio)
-             (posicao-peca-aux peca (rest tabuleiro) (1+ inicio))))
-        (t (let ((posicao (posicao-peca-aux peca (first tabuleiro) 0)))
+             (posicao-aux casa (rest tabuleiro) (1+ inicio))))
+        (t (let ((posicao (posicao-aux casa (first tabuleiro) 0)))
              (if posicao
                  (cons inicio posicao)
-                 (posicao-peca-aux peca (rest tabuleiro) (1+ inicio)))))))
+                 (posicao-aux casa (rest tabuleiro) (1+ inicio)))))))
 
 (defun posicao-destino-cavalo ()
  "Função para retorna a casa do destino da peça para aplicação de regras"
@@ -116,7 +116,7 @@
              (T NIL))))
 
 (defun gerar-lista-sem-numero-089 ()
- "Função que recebe um tabuleiro para remover os numeros que terminam com 0, 8 e 9"
+ "Função que gerar e cria uma lista de numeros entre 11 até 77 com remoção os numeros que terminam com 0, 8 e 9"
    (loop for n from 11 to 77
 	if (equal (numero-com-089 n) 'NIL)
       collect n))
@@ -135,9 +135,13 @@
 (defun regra-numero-duplo (tabuleiro)
  "Se uma Torre for colocado numa casa com um número duplo,
   por exemplo 66, então deve ser removido o número duplo de maior valor"
-  ;;obter posicao inicial da peça
+    ;;obter posicao inicial da peça
   ;;obter a posicao final da peça (obter o valor da casa antes de movimentar)
- )
+  (let* ((posicao (obter-posicao-peca-ou-casa tabuleiro))
+         (valor (obter-peca-ou-casa (first posicao) (second posicao) tabuleiro)))
+        (format t "p: ~A, valor: ~A, p0: ~A, p1: ~A ~%" posicao valor (first posicao) (second posicao))
+  
+))
 
 ;;------------------------------------------------------------------------------------------------------
 ;;   REGRAS DE SIMETRICOS
@@ -156,23 +160,23 @@
   por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabuleiro"
   ;;obter posicao inicial da peça
   ;;obter a posicao final da peça (obter o valor da casa antes de movimentar)
-  (let* ((peca (posicao-cavalo tabuleiro))
-         (valor (celula (first peca)(second peca) tabuleiro)))
-     (format t "p: ~A, valor: ~A, p0: ~A, p1: ~A ~%" peca valor (first peca) (second peca))
+  (let* ((posicao (obter-posicao-peca-ou-casa tabuleiro))
+         (valor (obter-peca-ou-casa (first posicao) (second posicao) tabuleiro)))
+        (format t "p: ~A, valor: ~A, p0: ~A, p1: ~A ~%" posicao valor (first posicao) (second posicao))
   
 ))
 
 ;;------------------------------------------------------------------------------------------------------
 ;;   PEÇA CAVALO ("T")
 ;;------------------------------------------------------------------------------------------------------
-(defun posicao-peca (tabuleiro)
-  "Função que recebe o tabuleiro e devolve a posição (i j) em que se encontra o cavalo. 
+(defun obter-posicao-peca-ou-casa (tabuleiro &optional (casa 'T))
+  "Função que recebe o elemento e tabuleiro e ainda devolve a posição (i j) em que se encontra o cavalo. 
   Caso o cavalo não se encontre no tabuleiro deverá ser retornado NIL"
-  (posicao-peca-aux 'T tabuleiro))
+  (posicao-aux casa tabuleiro))
 
-(defun obter-peca-tabuleiro (tabuleiro)
+(defun obter-peca-ou-casa (i j tabuleiro)
  "Função que procura a posicao de cavalo no tabuleiro e retorna o seu valor"
-  (celula (first (posicao-peca tabuleiro)) (second (posicao-peca tabuleiro)) tabuleiro))
+  (celula i j tabuleiro))
 
 (defun mover-peca (x y dx dy tabuleiro)
   "Função que irá mover o cavalo"
@@ -336,13 +340,13 @@
   "Funcao que devolve a lista de todos os sucessores de um determinado no passado como argumento"
   (cond
       ((equal algoritmo 'dfs)
-       (cond
-           ;So se aplica os sucessores caso a profundidade do no seja inferior a profundidade maxima
-           ((>= (no-profundidade no) profundidade) NIL)  
-           (T (apply #'append (mapcar #'(lambda(operador)
-                                    (aplicar-operador-no no operador heuristica)) operadores)))))
-     (T (apply #'append (mapcar #'(lambda(operador)
-                                  (aplicar-operador-no no operador heuristica)) operadores)))))
+          (cond
+              ;So se aplica os sucessores caso a profundidade do no seja inferior a profundidade maxima
+              ((>= (no-profundidade no) profundidade) NIL)  
+              (T (apply #'append (mapcar #'(lambda (operador)
+                                                   (aplicar-operador-no no operador heuristica)) operadores)))))
+   (T (apply #'append (mapcar #'(lambda (operador)
+                                        (aplicar-operador-no no operador heuristica)) operadores)))))
 
 
 (defun aplicar-operador-no (no operador heuristica)
@@ -361,7 +365,6 @@
                                    (equal operador 'ESQUERDA-BAIXO)
                                    (equal operador 'ESQUERDA-CIMA))
                                (jogadas-possiveis (no-estado no))))))
-     
       (mapcar #'(lambda (jogada)
                      (let* ((estado (funcall operador (first jogada) (second jogada) (no-estado no)))
                             (pecas-novas NIL)
@@ -377,9 +380,11 @@
    ;;obter posicao do cavalo e obter o valor celula  (obter-peca-tabuleiro tabuleiro)
    ;; verificar se existe casas vazias ou não
    ;; determinar as possiveis jogadas
-  ;;(format t "peça: ~A <-> posicao: ~A ~%" (obter-peca-tabuleiro tabuleiro) (posicao-peca tabuleiro))
+  (let* ((posicao (obter-posicao-peca-ou-casa tabuleiro))
+         (valor (obter-peca-ou-casa (first posicao) (second posicao) tabuleiro)))
+     (format t "p: ~A, valor: ~A, p0: ~A, p1: ~A ~%" posicao valor (first posicao) (second posicao))
 
-)
+))
 
 (defun jogada-in-jogadas-possiveis-p (jogada tabuleiro)
   "Funcao que verifica se uma determinada jogada existe na lista de jogadas possiveis para a peca passada por argumento"
