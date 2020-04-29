@@ -9,6 +9,12 @@
   (mapcar (lambda (x) (format T "~@T~@T~@T~@T~A ~%" x)) tabuleiro)
   (format NIL ""))
 
+(defun mostrar-movimento (tabuleiro)
+  "Mostra o tabuleiro"
+  (terpri)
+  (mapcar (lambda (x) (format T "~@T~@T~@T~@T~A ~%" x)) tabuleiro)
+  (format NIL ""))
+
 ;;; Função para imprimir tabuleiro no ficheiro
 (defun mostrar-tabuleiro-ficheiro (tabuleiro file)
   "permite imprimir tabuleiro no ficheiro"
@@ -16,9 +22,27 @@
   (mapcar (lambda (x) (format file "	~A ~%" x)) tabuleiro)
   (format NIL ""))
 
-(defun mostrar-movimentos (tabuleiro movimentos)
-  "Mostra os movimentos do tabuleiro"
-	(mapcar (lambda (x) (mostrar-tabuleiro (+ x 1))) (obter-movimentos tabuleiro movimentos)))
+
+(defun processar-dados (algoritmo problema estado pecas &optional (profundidade 0) (heuristica 0) (f 0) (pai NIL))
+  ""                                 
+ (let* (;;(no-heuristica (funcall heuristica problema pecas))
+        (no (criar-no  estado 
+                       pecas
+                       profundidade
+                       heuristica
+                       f ;f do no raiz, que vai ser igual a heuristica porque g=0
+                       pai)))
+
+      (mostrar-tabuleiro no)
+         (cond
+           ((equal algoritmo-escolhido 'dfs)
+            (mostrar-resultado (no problema algoritmo heuristica 1 profundidade)))
+          (T (mostrar-resultado (no problema algoritmo heuristica 1 profundidade)))
+     ;; (escrever-resultados (dfs no 'no-objetivo-p 'sucessores (operadores) profundidade-escolhida heuristica-escolhida) caminho))
+     ;;(T (escrever-resultados (funcall algoritmo-escolhido no 'no-objetivo-p 'sucessores (operadores) heuristica-escolhida) caminho))
+))) 
+
+
 ;===========================================================================
 ;       FUNÇÕES DE LEITURA E ESCRITA
 ;===========================================================================
@@ -45,20 +69,20 @@
   (nth (- tabuleiro 1) (ler-problema (concatenate 'string (diretoria-atual) "problemas.dat"))))           
 
 ;;; Função que mostra os resultados de um determinado problema
-(defun mostrar-resultado (tabuleiro problema algoritmo heuristica tempo limite &optional (nosGerados 0) (nosExpandidos 0) (nosDescartados 0))
+(defun mostrar-resultado (no problema algoritmo heuristica tempo limite &optional (nosGerados 0) (nosExpandidos 0) (nosDescartados 0))
   "mostra os resultados de um determinado problema"
   (terpri)	
   (format T "~%~@T~@T~@T~@T   +===========================+~%")
   (format T "~@T~@T~@T~@T   |    ESTATISTICAS GERAIS    |~%")
   (format T "~@T~@T~@T~@T   +===========================+~%")
   (mostrar-objetivo problema T)
-  (format T "	~A" (mostrar-tabuleiro tabuleiro))
+  (format T "	~A" (mostrar-tabuleiro no))
   (format T "~%      --- TABULEIRO INICIAL ---~%" )
   (format T "	~A" (mostrar-tabuleiro (tabuleiro-inicial)))
   (format T "~%      --- MOVIMENTOS ---~%" )
  ;;mostrar movimento
   (format T "~%      --- TABULEIRO FINAL ---~%" )
-  (format T "	~A" (mostrar-tabuleiro tabuleiro))
+  (format T "	~A" (mostrar-tabuleiro no))
   (format T "~%      --- RESULTADO ---~%")
   (format T "        Problema: ~A ~%" problema) 
   (format T "        Algoritmo: ~A ~%" algoritmo) 
@@ -81,13 +105,13 @@
                 (format file "~@T~@T~@T~@T   |    ESTATISTICAS GERAIS    |~%")
                 (format file "~@T~@T~@T~@T   +===========================+~%")
                 (mostrar-objetivo problema file)
-                (format file "	~A" (mostrar-tabuleiro-ficheiro tabuleiro file))
+                (format file "	~A" (mostrar-tabuleiro-ficheiro no file))
                 (format file "~%      --- TABULEIRO INICIAL ---~%" )
-                (format file "	~A" (mostrar-tabuleiro-ficheiro tabuleiro file))
+                (format file "	~A" (mostrar-tabuleiro-ficheiro no file))
                 (format file "~%      --- MOVIMENTOS ---~%" )
                 ;;mostrar movimento
                 (format file "~%      --- TABULEIRO FINAL ---~%" )
-                (format file "	~A" (mostrar-tabuleiro-ficheiro tabuleiro file))
+                (format file "	~A" (mostrar-tabuleiro-ficheiro no file))
                 (format file "~%      --- RESULTADO ---~%")
                 (format file "        Problema: ~A ~%" problema) 
                 (format file "        Algoritmo: ~A ~%" algoritmo) 
@@ -106,13 +130,29 @@
 ;===========================================================================
 ;       FUNÇÕES PARA INTER-ACÇÃO DO UTILIZADOR
 ;===========================================================================
+(defun ler-caminho (&optional (path (diretoria-atual))) 
+  "Função para ler o diretorio onde se encontra os ficheiros do projeto" 
+   (cond 
+       ((null path) (format T "~@T~@T~@T~@T Introduza o caminho ate ao diretorio do projeto:~%")     
+	   (ler-caminho (read-line)))
+	   (T path)))
 
-;;; Função iniciar programa
+
+
+
 (defun iniciar ()
-  "Permite iniciar o programa, fazer load de ficheiros e apresenta o menu principal"
-  (load (concatenate 'string (diretoria-atual) "puzzle.ofasl"))
-  (load (concatenate 'string (diretoria-atual) "procura.ofasl"))
-  (menu-principal))
+  "Permite para iniciar o programa"
+   (let ((path (ler-caminho)))
+        (carregar-ficheiros path)))
+
+(defun carregar-ficheiros (path)
+  "Permite que compila e carregar os ficheiros do projeto para ser executados"
+  (progn 
+	;(compile-file (concatenate 'string path "puzzle.lisp"))
+        ;(compile-file (concatenate 'string path "procura.lisp"))
+	(load (concatenate 'string path "puzzle.ofasl"))
+        (load (concatenate 'string path "procura.ofasl"))
+        (menu-principal)))
 
 ;;; Função menu principal
 (defun menu-principal ()
@@ -213,9 +253,9 @@
 
 ;;; Função para busca em largura
 (defun busca-largura (tabuleiro algoritmo problema)
-  "para inserir a profundidade para busca em profundidade"
+  "para busca em largura"
   (format T "~%~@T~@T~@T~@T Procura Generica - Largura")
-  (mostrar-resultado tabuleiro problema algoritmo 'NIL 1 4)
+  (processar-dados algoritmo problema tabuleiro 'T)
   (iniciar))
 
 ;;; Função para inserir a profundidade
@@ -228,9 +268,7 @@
      ((numberp profundidade)
       (cond
        ((> profundidade 0) 
-        (terpri)
-        (format T "~@T~@T~@T~@T PROFUNDIDADE: ~A" profundidade)
-        (mostrar-resultado tabuleiro problema algoritmo 'NIL 1 profundidade);;para teste
+        (processar-dados algoritmo problema tabuleiro 'T profundidade)
         (iniciar))
        (T (busca-profundidade tabuleiro algoritmo problema))))
      (T (busca-profundidade tabuleiro algoritmo problema)))))
@@ -254,18 +292,18 @@
      ((equal opcao '1)
       (cond
        ((equal algoritmo 'IDA*)                              
-        (mostrar-resultado tabuleiro problema algoritmo 'Heuristica1 1 2)
+        (processar-dados algoritmo problema tabuleiro 'T 0 'heuristica1)
         (iniciar))
        ((equal algoritmo 'A*)                            
-        (mostrar-resultado tabuleiro problema algoritmo 'Heuristica1 1 3)     
+        (processar-dados algoritmo problema tabuleiro 'T 0 'heuristica1)
         (iniciar))))
      ((equal opcao '2)
       (cond
-       ((equal algoritmo 'IDA*)                                              
-        (mostrar-resultado tabuleiro problema algoritmo 'Heuristica2 1 1)                   
+       ((equal algoritmo 'IDA*)                                               
+        (processar-dados algoritmo problema tabuleiro 'T 0 'heuristica2)
         (iniciar))
        ((equal algoritmo 'A*)                            
-        (mostrar-resultado tabuleiro problema algoritmo 'Heuristica2 1 4)                
+        (processar-dados algoritmo problema tabuleiro 'T 0 'heuristica1)
         (iniciar))))
      ((equal opcao '0) 
       (terpri) 
