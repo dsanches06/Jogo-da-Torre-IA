@@ -14,15 +14,15 @@
            (sucessores (remover-nos-repetidos (funcall funcao-sucessores no-atual operadores 'bfs heuristica) abertos-sem-no-inicial fechados-com-no-inicial))
            (abertos-com-sucessores (abertos-bfs abertos-sem-no-inicial sucessores)))
           
-        (format t "~%----------------BFS------------------------------~%") 
-        (format t "~%No-Atual:")
-        (mostrar-tabuleiro  (first no-atual))
-        (format t "~%Abertos-sem-inicial: ~A ~%" abertos-sem-no-inicial)
-        (format t "~%Fechados-com-no-inicial:")
-        (mostrar-tabuleiro (first (first fechados-com-no-inicial)))
-        (format t "~%Sucessores: ~A ~%" sucessores)
-        (format t "~%Abertos-com-sucessores: ~A ~%" abertos-com-sucessores)
-        (format t "~%---------------------------------------------~%~%")
+        ;;(format t "~%----------------BFS------------------------------~%") 
+        ;;(format t "~%No-Atual:")
+        ;;(mostrar-tabuleiro  (first no-atual))
+        ;;(format t "~%Abertos-sem-inicial: ~A ~%" abertos-sem-no-inicial)
+        ;;(format t "~%Fechados-com-no-inicial:")
+        ;;(mostrar-tabuleiro (first (first fechados-com-no-inicial)))
+        ;;(format t "~%Sucessores: ~A ~%" sucessores)
+        ;;(format t "~%Abertos-com-sucessores: ~A ~%" abertos-com-sucessores)
+       ;; (format t "~%---------------------------------------------~%~%")
 
       (cond
        ;Se existir uma solucao nos sucessores, vamos a procura dessa solucao

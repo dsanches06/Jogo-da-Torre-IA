@@ -33,7 +33,7 @@
 
 (defun tabuleiro-inicial ()
 "Função para criar tabuleiro inicial já com inserido na posição a1 e g1 no array (0 6)"  
-(substituir 3 3 (gerar-tabuleiro) 'T))
+(substituir 1 6 (gerar-tabuleiro) 'T))
 
 (defun gerar-tabuleiro ()
 "Função auxiliar para gerar e baralhar o tabuleiro com casas de 0 a 77
@@ -342,7 +342,7 @@ caso não se encontre no tabuleiro deverá ser retornado NIL"
 
 (defun operadores ()
 "Funcao que lista todos os operadores existentes no dominio do problema"
- (list 'BAIXO 'CIMA 'ESQUERDA 'DIREITA))
+ (list 'BAIXO 'ESQUERDA 'CIMA 'DIREITA))
 
 ;;------------------------------------------------------------------------------------------------------
 ;;  SUCESSORES
@@ -379,17 +379,16 @@ um no (um sucessor) para cada uma dessas jogadas possives"
                   (pecas (set-pontos-peca (no-peca no) pontos-destino))
                   (heuristica 0);; (funcall heuristica estado (no-peca no)))
                   (profundidade (1+ (no-profundidade no)))
-                  (custo (+ profundidade heuristica)))
-                  ;;(novo-no (criar-no estado pecas profundidade heuristica custo no)));;cria novo movimento
-                 ; (nova-lista-operadores (remover-primeiro-operador operadores)))
+                  (custo (+ profundidade heuristica))
+                  (novo-no (criar-no estado pecas profundidade heuristica custo no));;cria novo movimento
+                  (nova-lista-operadores (remover-primeiro-operador operadores)))
  (format t "~@T~@T~@T~@TNo-Pecas: ~A ~%" pecas)
            (format t "~@T~@T~@T~@TJogadas possiveis: ~A ~%" jogadas)
            (format t "~@T~@T~@T~@TOperador: ~A ~%" operador)
            (format t "~@T~@T~@T~@TJogada Destino: ~A~%" jogada-destino)
            (format t "~@T~@T~@T~@TPontos jogada destino: ~A" pontos-destino)
            (mostrar-tabuleiro estado)                         
-            (criar-no estado pecas profundidade heuristica custo no);;cria novo movimento
-          ;; (gerar-sucessores novo-no nova-lista-operadores algoritmo heuristica profundidade);;volta para gerar sucessores com novo estado
+           (gerar-sucessores novo-no nova-lista-operadores algoritmo heuristica profundidade);;volta para gerar sucessores com novo estado
 )) MAX-JOGADA))
 
 
