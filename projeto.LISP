@@ -1,4 +1,4 @@
- ;;;; puzzle.lisp
+;;;; puzzle.lisp
 ;;;; Disciplina de IA - 2019 / 2020
 ;;;; Autor:
 ;===========================================================================
@@ -13,8 +13,8 @@
 
 (defun mostrar-movimento (sucessores)
   "Mostra os movimentos"
-  (mapcar #'(lambda(x) (format T "~A" (mostrar-tabuleiro (first x)))) sucessores))
-
+  (mapcar #'(lambda (x) (format t "~A"(mostrar-tabuleiro (first x)))) sucessores))
+                                                                                          
 ;;; Função para imprimir tabuleiro no ficheiro
 (defun mostrar-tabuleiro-ficheiro (tabuleiro file)
   "permite imprimir tabuleiro no ficheiro"

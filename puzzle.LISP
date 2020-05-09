@@ -5,11 +5,6 @@
 ;;------------------------------------------------------------------------------------------------------
 ;;  VARIAVEIS GLOBAIS
 ;;------------------------------------------------------------------------------------------------------
-;;movimentos possiveis da Torre na horizontal e vertical
-;;BAIXO, CIMA, ESQUERDA, DIREITA
-(defconstant MOVIMENTOS-DA-TORRE '(#(1 0) #(-1 0) #(0 -1) #(0 1)))
-;;Uma jogada de cada vez
-(defconstant MAX-JOGADA '(1))
 ;;contador para incrementar ocorrencia = 77
 (defparameter *fn* (let ((count 0)) #'(lambda () (incf count))))
 
@@ -17,19 +12,14 @@
 ;;   TABULEIRO 7x7
 ;;------------------------------------------------------------------------------------------------------
 
-(defun teste3 ()
-'(
-
-
-      (nil nil nil nil nil nil nil) 
-      (41 22 36 52 67 15 47) 
-      (43 51 75 74 27 23 61) 
-      (34 54 nil 44 57 t 64) 
-      (56 62 22 46 45 26 65) 
-      (24 nil nil nil 32 35 71) 
-      (14 16 33 63 11 37 76) 
-
-))
+(defun board ()
+ '((64 35 74 26 21 57 12) 
+   (43 15 47 53 24 56 42) 
+   (51 41 71 31 17 45 55) 
+   (67 66 22 T 54 75 32) 
+   (13 11 16 23 25 27 33) 
+   (34 36 37 44 46 52 61) 
+   (62 63 65 72 73 76 77)))
 
 (defun tabuleiro-inicial ()
 "Função para criar tabuleiro inicial já com inserido na posição a1 e g1 no array (0 6)"  
@@ -147,22 +137,23 @@ remover-se em que a função deve remover o número da lista igual ao encontrado al
 ;;------------------------------------------------------------------------------------------------------
 ;;   REGRAS DE NUMEROS-DUPLOS
 ;;------------------------------------------------------------------------------------------------------
-(defun regra-numero-duplo (pontos tabuleiro)
+(defun regra-numero-duplo (peca pontos tabuleiro)
 "Se uma Torre for colocado numa casa com um número duplo,
 por exemplo 66, então deve ser removido o número duplo de maior valor"
+  ;; (format t "~@T~@T~@T~@TPeça ~A -> Casa ~A - Regra de Duplo~%" peca pontos)
    (cond 
          ((= pontos 0) tabuleiro)
          (T (let* ((lista-nova (apply #'append tabuleiro));;converter o tabuleiro 7x7 em uma única lista
                    (lista-max (loop for n in lista-nova ;;percorrer a nova lista
                    if (and (numberp n)(equal (digitos-iguais n) 'T) (> n pontos))
                              collect n)))
-            (format t "~@T~@T~@T~@TLista Duplos Max: ~A~%" lista-max)
+            ;;(format t "~@T~@T~@T~@TLista Duplos Max: ~A~%" lista-max)
               (cond 
                   ((equal lista-max 'NIL) tabuleiro)
                   (T (let* ((duplo-max (maior-numero-lista lista-max))
                             (posicao-duplo-max (obter-posicao tabuleiro duplo-max)))
-          (format t "~@T~@T~@T~@TDuplo Max: ~A~%" duplo-max)
-          (format t "~@T~@T~@T~@TPosicao ~A: ~A~%" duplo-max posicao-duplo-max)
+          ;;(format t "~@T~@T~@T~@TDuplo Max: ~A~%" duplo-max)
+         ;; (format t "~@T~@T~@T~@TPosicao ~A: ~A~%" duplo-max posicao-duplo-max)
 
           (substituir (first posicao-duplo-max) (second posicao-duplo-max) tabuleiro 'NIL)))))
 
@@ -171,14 +162,15 @@ por exemplo 66, então deve ser removido o número duplo de maior valor"
 ;;------------------------------------------------------------------------------------------------------
 ;;   REGRAS DE SIMETRICOS
 ;;------------------------------------------------------------------------------------------------------
-(defun regra-simetrico (pontos tabuleiro) 
+(defun regra-simetrico (peca pontos tabuleiro) 
 "Se a casa escolhida tiver um número com dois dígitos diferentes,
 por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabuleiro"
+   ;;(format t "~@T~@T~@T~@TPeça ~A -> Casa ~A - Regra de Simetrico~%" peca pontos)
   (cond 
        ((= pontos 0) tabuleiro)
       (T (let* ((simetrico-pontos-destino (simetrico pontos));;numero simetricos de pontos
                 (posicao-simetrico (obter-posicao tabuleiro simetrico-pontos-destino)));;obter a posicao do numero simetrico
-                 (format t "~@T~@T~@T~@TPosicão ~A: ~A~%" simetrico-pontos-destino posicao-simetrico)
+                ;; (format t "~@T~@T~@T~@TPosicão ~A: ~A~%" simetrico-pontos-destino posicao-simetrico)
             (cond
                 ((or (= simetrico-pontos-destino 0) (equal posicao-simetrico 'NIL)) tabuleiro);; for nula, retorna o tabuleiro
                  (T (substituir (first posicao-simetrico) (second posicao-simetrico) tabuleiro 'NIL)))))))
@@ -257,25 +249,18 @@ caso não se encontre no tabuleiro deverá ser retornado NIL"
      ;     (T (posicao-aux casa tabuleiro)))))
 (posicao-aux casa tabuleiro))
 
-(defun mover-peca (x y dx dy jogada tabuleiro)
-"Função que irá mover o cavalo"
-;;(format t "x:~A, y:~A, dx:~A, dy:~A, jogada:~A~%" x y dx dy jogada)
-(let* ((novo-tabuleiro (copy-tree tabuleiro))
-       (novo-x (+ x dx))
-       (novo-y (+ y dy))
-       (peca (nth y (nth x tabuleiro)));;tira a peça
-       (pontos-destino (pontos-casa-destino jogada tabuleiro)));;pontos da casa destino
-      (cond
-        ((equal (digitos-iguais pontos-destino) 'T);;igual ao numero duplo, usar regra de duplo
-        	(setf (nth y (nth x novo-tabuleiro)) 'NIL ;;-> coloca a casa vazia e indisponivel
-                (nth novo-y (nth novo-x novo-tabuleiro)) peca);;coloca a peça
-                (format t "~@T~@T~@T~@TPeça ~A -> Casa ~A - Regra de Duplo~%" peca pontos-destino)
-        (regra-numero-duplo pontos-destino novo-tabuleiro));;aplica a regra de duplo
-       
-        (T (setf (nth y (nth x novo-tabuleiro)) 'NIL ;;-> coloca a casa vazia e indisponivel
-                 (nth novo-y (nth novo-x novo-tabuleiro)) peca);;coloca a peça
-                 (format t "~@T~@T~@T~@TPeça ~A -> Casa ~A - Regra de Simetrico~%" peca pontos-destino)
-          (regra-simetrico pontos-destino novo-tabuleiro)))))
+(defun mover-peca (x y dx dy tabuleiro)
+  (let* ((novo-tabuleiro (copy-tree tabuleiro))
+         (novo-x (+ x dx))
+         (novo-y (+ y dy))
+         (peca (nth x (nth y tabuleiro)))
+         (pontos-destino (nth novo-x (nth novo-y tabuleiro))))
+         (when (posicao-validap novo-x novo-y)
+               (setf (nth x (nth y novo-tabuleiro)) NIL
+                     (nth novo-x (nth novo-y novo-tabuleiro)) peca)
+               (if (equal (digitos-iguais pontos-destino) 'T);;se for digitos iguais
+                   (regra-numero-duplo peca pontos-destino novo-tabuleiro);;regra duplo
+                   (regra-simetrico peca pontos-destino novo-tabuleiro)))));;regra simetrico
 
 ;;------------------------------------------------------------------------------------------------------
 ;;   VALIDAÇÃO DE CASAS E MOVIMENTOS
@@ -304,162 +289,120 @@ caso não se encontre no tabuleiro deverá ser retornado NIL"
 (cond
 ((null (no-pai no)) solucoes)))
 ;;(T  (movimentos-solucao (no-pai no) (cons (no-movimento no) solucoes)))))
-                 
+             
 ;;------------------------------------------------------------------------------------------------------
 ;;   OPERADORES
 ;;------------------------------------------------------------------------------------------------------
-(defun BAIXO (x y jogada tabuleiro) 
-"Função que faz o movimento da Torre para baixo"
-(cond
-    ((and (equal (posicao-validap (+ x 1) (+ y 0)) 'T)
-          (equal (casa-disponivel (+ x 1) (+ y 0) tabuleiro) 'T))
-     (mover-peca x y 1 0 jogada tabuleiro))
-    (T (format t "~@T~@T~@T~@T>>> SEM MOVIMENTO PARA BAIXO...~%") NIL)))
+(defun HORIZONTAL (x y n movimento tabuleiro) 
+ "Função que faz o movimento da Torre no sentido horizontal"
+   (cond
+        ((and (equal movimento 'ESQUERDA) 
+              (equal (posicao-validap (- x n) (+ y 0)) 'T)
+              (equal (casa-disponivel (- x n) (+ y 0) tabuleiro) 'T))
+              (mover-peca x y (- n) 0 tabuleiro))
+       
+        ((and (equal movimento 'DIREITA) 
+              (equal (posicao-validap (+ x n) (+ y 0)) 'T)
+              (equal (casa-disponivel (+ x n) (+ y 0) tabuleiro) 'T))
+              (mover-peca x y n 0 tabuleiro))
+        (T NIL)))
 
-(defun CIMA (x y jogada tabuleiro) 
-"Função que faz o movimento da Torre para cima"
-(cond
-    ((and (equal (posicao-validap (- x 1) (+ y 0)) 'T)
-          (equal (casa-disponivel (- x 1) (+ y 0) tabuleiro) 'T))
-     (mover-peca x y -1 0 jogada tabuleiro))
-    (T (format t "~@T~@T~@T~@T>>> SEM MOVIMENTO PARA CIMA...~%") NIL)))
-
-(defun ESQUERDA (x y jogada tabuleiro) 
-"Função que faz o movimento da Torre para esquerda"
-(cond
-    ((and (equal (posicao-validap (+ x 0) (- y 1)) 'T)
-          (equal (casa-disponivel (+ x 0) (- y 1) tabuleiro) 'T))
-     (mover-peca x y 0 -1 jogada tabuleiro))
-     (T (format t "~@T~@T~@T~@T>>> SEM MOVIMENTO PARA ESQUERDA...~%") NIL)))
-
-(defun DIREITA (x y jogada tabuleiro) 
-"Função que faz o movimento da Torre para direita"
-(cond
-    ((and (equal (posicao-validap (+ x 0) (+ y 1)) 'T)
-          (equal (casa-disponivel (+ x 0) (+ y 1) tabuleiro) 'T))
-     (mover-peca x y 0 1 jogada tabuleiro))
-   (T (format t "~@T~@T~@T~@T>>> SEM MOVIMENTO PARA DIREITA...~%") NIL)))
+(defun VERTICAL (x y n movimento tabuleiro) 
+ "Função que faz o movimento da Torre no sentido vertical"
+   (cond
+        ((and (equal movimento 'CIMA) 
+              (equal (posicao-validap (+ x 0) (- y n)) 'T)
+              (equal (casa-disponivel (+ x 0) (- y n) tabuleiro) 'T))
+              (mover-peca x y 0 (- n) tabuleiro))
+       
+        ((and (equal movimento 'BAIXO) 
+              (equal (posicao-validap (+ x 0) (+ y n)) 'T)
+              (equal (casa-disponivel (+ x 0) (+ y n) tabuleiro) 'T))
+              (mover-peca x y 0 n tabuleiro))
+        (T NIL)))
 
 (defun operadores ()
 "Funcao que lista todos os operadores existentes no dominio do problema"
- (list 'BAIXO 'CIMA 'ESQUERDA 'DIREITA))
+ (list 'HORIZONTAL 'VERTICAL))
 
+(defun posicao-validap (x y)
+"Funçao para verificar se as coordenadas são validas"
+;(format t "posicao valida: x:~A, y:~A~%" x y)
+(and (>= x 0) (>= y 0) (< x 7) (< y 7)))
+
+(defun movimentos ()
+"Funcao que lista dos movimentos"
+ (list 'CIMA 'BAIXO 'ESQUERDA 'DIREITA))
+
+(defun jogadas-possiveis (x y tabuleiro) 
+ "Funcao que determina todas as jogadas possiveis para um tipo de 
+  peca num determinado tabuleiro, devolvendo-as numa lista"
+  (let (result)
+    (dolist (mov '(CIMA BAIXO ESQUERDA DIREITA) result)
+      (dotimes (n 6)
+        (when (or (not (equal (HORIZONTAL x y n mov tabuleiro) 'NIL));;se movimento for valido na horizontal
+                  (not (equal (VERTICAL x y n mov tabuleiro) 'NIL)));se movimento for valido na vertical
+          (push (list n mov) result))))));;cria uma lista de jogadas
 ;;------------------------------------------------------------------------------------------------------
 ;;  SUCESSORES
 ;;------------------------------------------------------------------------------------------------------
 (defun gerar-sucessores (no operadores algoritmo &optional (heuristica NIL) (profundidade NIL))
 "Funcao que devolve a lista de todos os sucessores de um determinado no passado como argumento"
   
-         (format t "~%~@T~@T~@T~@T ~A~%" operadores)
+         (format t "~%~@T~@T~@T~@T--- Tabuleiro inicial ---~%")
          (mostrar-tabuleiro (no-estado no))
-;;(cond
-  ;;     ((equal operadores 'NIL)(apply #'append (mapcar #'(lambda (operador)
-    ;;                             (aplicar-operador-no no operador heuristica operadores algoritmo))) operadores))
-
 (cond
-((equal algoritmo 'dfs)
+    ((equal algoritmo 'dfs)
  (cond
   ((>= (no-profundidade no) profundidade) NIL) ;So se aplica os sucessores caso a profundidade do no seja inferior a profundidade maxima
-  (T (apply #'append (mapcar #'(lambda (operador)
-                                 (aplicar-operador-no no operador heuristica operadores algoritmo)) operadores)))))
-(T (apply #'append (mapcar #'(lambda (operador)
-                                            (aplicar-operador-no no operador heuristica operadores algoritmo)) operadores)))))
+  (T (remover-jogadas-invalidas (apply #'append (mapcar #'(lambda (operador)
+                                            (aplicar-operador-no no operador heuristica)) operadores))))))
+(T (remover-jogadas-invalidas (apply #'append (mapcar #'(lambda (operador)
+                                            (aplicar-operador-no no operador heuristica)) operadores))))))
 
-(defun aplicar-operador-no (no operador heuristica operadores algoritmo)
-"Funcao que aplica apenas um operador a um determinado no. 
-Consoante o operador passado por argumento esta funcao ira 
-determinar as jogadas possiveis para esse operador e ira criar
-um no (um sucessor) para cada uma dessas jogadas possives"
-   (mapcar #'(lambda (x)
-           (let* ((posicao-peca (obter-posicao (no-estado no)))
-                  (jogadas (jogadas-possiveis posicao-peca))
-                  (jogada-destino (obter-jogada-destino jogadas operador (no-estado no)))
-                  (pontos-destino (pontos-casa-destino jogada-destino (no-estado no)))
-                  (estado (funcall operador (first posicao-peca) (second posicao-peca) jogada-destino (no-estado no)))
-                  (pecas (set-pontos-peca (no-peca no) pontos-destino))
-                  (heuristica 0);; (funcall heuristica estado (no-peca no)))
-                  (profundidade (1+ (no-profundidade no)))
-                  (custo (+ profundidade heuristica)))
-                  ;;(novo-no (criar-no estado pecas profundidade heuristica custo no)));;cria novo movimento
-                 ; (nova-lista-operadores (remover-primeiro-operador operadores)))
- (format t "~@T~@T~@T~@TNo-Pecas: ~A ~%" pecas)
-           (format t "~@T~@T~@T~@TJogadas possiveis: ~A ~%" jogadas)
-           (format t "~@T~@T~@T~@TOperador: ~A ~%" operador)
-           (format t "~@T~@T~@T~@TJogada Destino: ~A~%" jogada-destino)
-           (format t "~@T~@T~@T~@TPontos jogada destino: ~A" pontos-destino)
-           (mostrar-tabuleiro estado)                         
-            (criar-no estado pecas profundidade heuristica custo no);;cria novo movimento
-          ;; (gerar-sucessores novo-no nova-lista-operadores algoritmo heuristica profundidade);;volta para gerar sucessores com novo estado
-)) MAX-JOGADA))
+(defun aplicar-operador-no (no operador heuristica)
+"Funcao que aplica apenas um operador a um determinado no. Consoante o operador passado por argumento esta funcao ira 
+ determinar as jogadas possiveis para esse operador e ira criar um no (um sucessor) para cada uma dessas jogadas possives"
+   (let* ((posicao-peca (obter-posicao (no-estado no)))
+          (jogadas-possiveis (jogadas-possiveis (first posicao-peca) (second posicao-peca) (no-estado no))))
+         (cond
+              ((=(length jogadas-possiveis) 0) NIL);; se não houver jogada sai
+              (T (mapcar #'(lambda (jogada) (format t "~%Jogada ~A~%" jogada)
+                            (let* (
+                                   (posicao-destino (posicao-destino posicao-peca jogada))
+                                   (pontos-destino (pontos-destino posicao-destino (no-estado no)))
+                                   (estado (funcall operador (first posicao-peca) (second posicao-peca) (first jogada) (second jogada) (no-estado no)))
+                                   (pecas (set-pontos-peca (no-peca no) pontos-destino))
+                                   (heuristica (funcall heuristica estado (no-peca no)))
+                                   (profundidade (1+ (no-profundidade no)))
+                                   (custo (+ profundidade heuristica)))
+             (format t "~@T~@T~@T~@TJogada Destino: ~A~%" posicao-destino)
+           (format t "~@T~@T~@T~@TPontos jogada destino: ~A~%" pontos-destino)
+                              (criar-no estado pecas profundidade heuristica custo no))) jogadas-possiveis)))))
 
+(defun posicao-destino (peca jogada)
+ "Função que recebe uma jogada e retorna a posicao de destino"
+  (cond 
+      ((equal (second jogada) 'CIMA) (list (+ (first peca) 0) (- (second peca) (first jogada))))
+      ((equal (second jogada) 'BAIXO) (list (+ (first peca) 0) (+ (second peca) (first jogada))))
+      ((equal (second jogada) 'ESQUERDA) (list (- (first peca) (first jogada)) (+ (second peca) 0)))
+      ((equal (second jogada) 'DIREITA) (list (+ (first peca) (first jogada)) (+ (second peca) 0)))
+      (T NIL)))
 
-(defun remover-primeiro-operador (operadores)
- "Função que recebe uma lista de operadore e remove a primeiro"
-  (loop for n in operadores ;;percorrer a nova lista
-            if (not (equal n (first operadores)));se for diferente de primeiro operador
-                    collect n)) ;;coleciona os restantes operadores
+(defun pontos-destino (destino tabuleiro)
+ "Função que recebe uma jogada e retorna o numero de pontos da casa destino"
+  (cond 
+      ((null destino) 0);;jogada destino nula, 0 ponto
+      (T (celula (first destino) (second destino) tabuleiro))))
 
-
-(defun pontos-casa-destino (jogada tabuleiro)
- "Função que recebe uma jogada e o valor de pontos da casa desta jogada"
-    (cond
-          ((or (equal (first jogada) 'NIL) (equal (second jogada) 'N)) 0);;se for nula, ponto=0
-       (T (let* ((x (first jogada)) 
-                 (y (second jogada)))
-                  (cond
-                      ((and (equal (posicao-validap (+ x 0) (+ y 1)) 'T);;movimento é valido
-                            (equal (casa-disponivel x y tabuleiro) 'T));;se casa estiver disponivel
-                       (celula x y tabuleiro));;envia o valor de pontos da casa
-                  (T 0))))))
-            
-(defun obter-jogada-destino (jogadas operador tabuleiro)
-"Função que verifica a jogada destino corresponde com o tipo de movimento"
-(cond
-     ;; ((and (equal operador 'BAIXO);;se operador baixo
-       ;;    (or (equal (movimento-valido (+ (first jogadas) 1) (+ (second jogadas) 0) tabuleiro) 'NIL)
-         ;;      (equal (casa-disponivel (+ (first jogadas) 1) (+ (second jogadas) 0) tabuleiro) 'T))) )
-
-    ;; ((and (equal operador 'CIMA);;se operador cima
-      ;;     (or (equal (movimento-valido (- (first jogadas) 1) (+ (second jogadas) 0) tabuleiro) 'NIL)
-        ;;       (equal (casa-disponivel (- (first jogadas) 1) (+ (second jogadas) 0) tabuleiro) 'T))) )
-
-    ;; ((and (equal operador 'ESQUERDA);;se operador esquerda
-      ;;     (or (equal (movimento-valido (+ (first jogadas) 0) (- (second jogadas) 1) tabuleiro) 'NIL)
-        ;;       (equal (casa-disponivel (+ (first jogadas) 0) (- (second jogadas) 1) tabuleiro) 'T))) )
-
-    ;; ((and (equal operador 'DIREITA);;se operador direita
-      ;;     (or (equal (movimento-valido (+ (first jogadas) 0) (+ (second jogadas) 1) tabuleiro) 'NIL)
-        ;;       (equal (casa-disponivel (+ (first jogadas) 0) (+ (second jogadas) 1) tabuleiro) 'T))) )
+(defun remover-jogadas-invalidas (sucessores)
+"Remove todas as jogadas inválidas da lista de sucessores"
+  (cond
+      ((null sucessores) ())
+      ((null (first (first sucessores))) (remover-jogadas-invalidas (cdr sucessores)))
+      (T (cons (first sucessores) (remover-jogadas-invalidas (cdr sucessores))))))
 
 
-
- ((equal operador 'BAIXO)     (first jogadas))     
- ((equal operador 'CIMA)      (second jogadas))
- ((equal operador 'ESQUERDA)  (third jogadas))
- ((equal operador 'DIREITA)   (fourth jogadas))))
-
-(defun posicao-validap (x y)
-"Funçao para verificar se as coordenadas são validas"
-(and (>= x 0) (>= y 0) (< x 7) (< y 7)))
-
-(defun jogadas-possiveis (posicao)
-"Funcao que determina todas as jogadas possiveis para um tipo de 
-peca num determinado tabuleiro, devolvendo-as numa lista"
-(format t "~%~@T~@T~@T~@TPosicao Peça (T): ~A~%" posicao)
- (remove-if-not (lambda (lista) (apply #'posicao-validap lista))
-              (mapcar (lambda (mov)
-                       (let ((new-x (+ (first posicao) (aref mov 0)))
-                             (new-y (+ (second posicao) (aref mov 1))))
-                          (list new-x new-y))) MOVIMENTOS-DA-TORRE)))
-
-(defun jogada-in-jogadas-possiveis-p (jogada tabuleiro)
-"Funcao que verifica se uma determinada jogada existe na lista de jogadas possiveis para a peca passada por argumento"
-(let ((jogadas-possiveis (funcall #'jogadas-possiveis tabuleiro)))
-     (eval (cons 'or (mapcar #'(lambda (jogada-possivel) 
-                                      (cond
-                                          ((equal jogada-possivel jogada) T)
-                                          (T nil))) jogadas-possiveis)))))							
-		 
 ;;------------------------------------------------------------------------------------------------------
 ;;   SOLUÇAO, OBJECTIVO e CALCULAR PONTOS
 ;;------------------------------------------------------------------------------------------------------
