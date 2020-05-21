@@ -13,7 +13,7 @@
 
 (defun mostrar-movimento (sucessores)
   "Mostra os movimentos"
-  (mapcar #'(lambda (x) (format t "~A" (mostrar-tabuleiro (first x)))) sucessores))
+  (mapcar #'(lambda (x) (format t "~A" (mostrar-tabuleiro x))) sucessores))
 
 ;;; Função para imprimir tabuleiro no ficheiro
 (defun mostrar-tabuleiro-ficheiro (tabuleiro file)
@@ -30,32 +30,22 @@
   (let ((path "C:\\Users\\Toshiba\\Downloads\\Dados\\IA\\2019_2020\\ProjetoIA\\Fase I\\"))
     path))
 
+
 (defun resultado-aux (resultado)
- (format t "~%No-objetivo:~A~%" (first resultado))
- (format t "~%No-Pai:~A~%"  (no-pai (first resultado)))
-
- (format t "~%Sucessores:~A~%" (second resultado))
- (format t "~%Algoritmo:~A~%" (third resultado))
- (format t "~%Profundidade:~A~%" (fourth resultado))
- (format t "~%Tempo:~A~%" (fifth resultado))
- (format t "~%No-expandido:~A~%" (sixth resultado))
- (format t "~%No-gerado:~A~%" (seventh resultado))
-)
-
+  (format t "~%No-Objetivo:~A~%" resultado)
+ 
+  )
 
 
 (defun escrever-resultados (resultado)
   "Funcao que ira imprimir o resultado para o ecra de uma forma mais clara bem como escrever as estatisticas num ficheiro estatisticas.dat"
   
-  (format t "Resultados:~%")
- (format t "~A~%" resultado)
- (resultado-aux resultado)
-  ;,(format t "~%No-Objetivo:~%")
- ;; (format t "~A~%" (first resultado))
-  ;;(format t "~%Sucessores:~%")
- ;, (format t "~A~%" (second resultado))
- ;; (mostrar-movimento (second resultado))
-  
+  (format t "~%Resultados:~%")
+  (format t "~A~%" resultado)
+  (resultado-aux (first resultado))
+
+
+
   (cond
    ((not (null resultado))
     (let* ((no-objetivo (first resultado))
@@ -63,15 +53,14 @@
            (pecas (no-peca no-objetivo))
            (heuristica (no-heuristica no-objetivo))
            (custo-uniforme (no-f no-objetivo))
-           (pai (no-pai no-objetivo))
-           (problema (second (first pai)))
-           (objetivo (third (first pai)))
-           (sucessores (second resultado))
-           (algoritmo (third resultado))
-           (profundidade (fourth resultado))
-           (tempo (fifth resultado))
-           (nos-expandidos (sixth resultado))
-           (nos-gerados (seventh resultado)))
+           (pai (first (no-raiz no-objetivo)))
+           (problema (second pai))
+           (objetivo (third pai))
+           (algoritmo (second resultado))
+           (profundidade (third resultado))
+           (tempo (fourth resultado))
+           (nos-expandidos (fifth resultado))
+           (nos-gerados (sixth resultado)))
       (progn
         (format T "~%~@T~@T~@T~@T   +===========================+~%")
         (format T "~@T~@T~@T~@T   |    ESTATISTICAS GERAIS    |~%")
@@ -79,7 +68,7 @@
         (format T "~%~@T~@T~@T~@T --- NÓ INICIAL ---~%")
         (mostrar-tabuleiro (first pai))
         (format T "~%~@T~@T~@T~@T --- MOVIMENTOS ---~%")
-        (mostrar-movimento sucessores)
+        ;;(mostrar-movimento no-objetivo)
         (format T "~%~@T~@T~@T~@T --- NÓ OBJETIVO ---~%")
         (mostrar-tabuleiro estado-tabuleiro)
         (format T "~%~@T~@T~@T~@T --- RESULTADOS ---~%")
@@ -106,6 +95,8 @@
         ))) 
    (T NIL)))
 
+
+
 ;;;	(format file "================================================================================================================~%~%"))
 
 ;===========================================================================
@@ -128,6 +119,8 @@
   (progn 
     ;(compile-file (concatenate 'string path "puzzle.lisp"))
     ;(compile-file (concatenate 'string path "procura.lisp"))
+    ;(load (concatenate 'string path "puzzle.fasl"))
+    ;(load (concatenate 'string path "procura.fasl"))
     (load (concatenate 'string path "puzzle.ofasl"))
     (load (concatenate 'string path "procura.ofasl"))
     (menu-principal path)))
@@ -170,8 +163,8 @@
          (no (criar-no tabuleiro pecas-no-raiz 0 heuristica-no-raiz heuristica-no-raiz NIL)))
     (cond
      ((equal algoritmo 'dfs)
-      (escrever-resultados (dfs no algoritmo 'no-solucao-p 'gerar-sucessores profundidade heuristica)) (iniciar))
-     (T (escrever-resultados (funcall algoritmo no algoritmo 'no-solucao-p 'gerar-sucessores heuristica))
+      (escrever-resultados (dfs no algoritmo 'no-solucao-p 'gerar-sucessores (operadores) profundidade heuristica)) (iniciar))
+     (T (escrever-resultados (funcall algoritmo no algoritmo 'no-solucao-p 'gerar-sucessores (operadores) heuristica))
         (iniciar)))))
 
 ;; Função que apresenta a escolha do problema a resolver
@@ -184,7 +177,7 @@
     (format T "~@T~@T~@T~@T +===================================+~%")
     (format T "~@T~@T~@T~@T |         1 - Tabuleiro A [100]     |~%")
     (format T "~@T~@T~@T~@T |         2 - Tabuleiro B [200]     |~%")
-    (format T "~@T~@T~@T~@T |         3 - Tabuleiro C [300      |~%")
+    (format T "~@T~@T~@T~@T |         3 - Tabuleiro C [300]     |~%")
     (format T "~@T~@T~@T~@T |         4 - Tabuleiro D [425]     |~%")
     (format T "~@T~@T~@T~@T |         5 - Tabuleiro E [525]     |~%")
     (format T "~@T~@T~@T~@T |         6 - Tabuleiro F [1000]    |~%")
@@ -197,8 +190,8 @@
         (let ((tabuleiroA (list (ler-tabuleiro-ficheiro file) 'A 100))
               (tabuleiroB (list (ler-tabuleiro-ficheiro file) 'B 200))
               (tabuleiroC (list (ler-tabuleiro-ficheiro file) 'C 300))
-              (tabuleiroD (list (ler-tabuleiro-ficheiro file) 'D 400))
-              (tabuleiroE (list (ler-tabuleiro-ficheiro file) 'E 500))
+              (tabuleiroD (list (ler-tabuleiro-ficheiro file) 'D 425))
+              (tabuleiroE (list (ler-tabuleiro-ficheiro file) 'E 525))
               ;;(tabuleiroF (list (ler-tabuleiro-ficheiro file) 'F 1000))
               ;;(tabuleiroG (list (ler-tabuleiro-ficheiro file) 'G 'NIL')) ;Problema G da avaliacao oral
               
