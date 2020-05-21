@@ -33,7 +33,7 @@
 
 (defun resultado-aux (resultado)
   (format t "~%No-Objetivo:~A~%" resultado)
- 
+  
   )
 
 
@@ -43,24 +43,24 @@
   (format t "~%Resultados:~%")
   (format t "~A~%" resultado)
   (resultado-aux (first resultado))
-
-
-
+  
+  
+  
   (cond
    ((not (null resultado))
     (let* ((no-objetivo (first resultado))
            (estado-tabuleiro (first (first no-objetivo)))
            (pecas (no-peca no-objetivo))
+           (profundidade (no-profundidade no-objetivo))
            (heuristica (no-heuristica no-objetivo))
            (custo-uniforme (no-f no-objetivo))
            (pai (first (no-raiz no-objetivo)))
            (problema (second pai))
            (objetivo (third pai))
            (algoritmo (second resultado))
-           (profundidade (third resultado))
-           (tempo (fourth resultado))
-           (nos-expandidos (fifth resultado))
-           (nos-gerados (sixth resultado)))
+           (tempo (third resultado))
+           (nos-expandidos (fourth resultado))
+           (nos-gerados (fifth resultado)))
       (progn
         (format T "~%~@T~@T~@T~@T   +===========================+~%")
         (format T "~@T~@T~@T~@T   |    ESTATISTICAS GERAIS    |~%")
@@ -82,8 +82,8 @@
         (format T "~@T~@T~@T~@T   Custo Uniforme: ~A ~%" custo-uniforme)
         (format T "~@T~@T~@T~@T   Nós Gerados: ~A ~%" nos-gerados)    
         (format T "~@T~@T~@T~@T   Nós Expandidos: ~A ~%" nos-expandidos)  
-        ;;(format T "~@T~@T~@T~@T   Penetrancia: ~A" (penetrancia profundidade nos-gerados))
-        ;;(format T "~@T~@T~@T~@T   Fator de Ramificação: ~A ~%" (fator-ramificacao profundidade nos-gerados))
+        (format T "~@T~@T~@T~@T   Penetrancia: ~A ~%" (penetrancia profundidade nos-gerados))
+        (format T "~@T~@T~@T~@T   Fator de Ramificação: ~A ~%" (fator-ramificacao profundidade nos-gerados))
         (format T "~@T~@T~@T~@T   Tempo em Segundos: ~A ~%" (- (get-universal-time) tempo))
         (format T "~@T~@T~@T~@T   No Pai:")
         (mostrar-tabuleiro (first pai))
@@ -91,7 +91,7 @@
         (format T "~@T~@T~@T~@T   |     FIM DA ESTATISTICA    |~%")
         (format T "~@T~@T~@T~@T   +===========================+~%~%")
         
-        ;;(escrever-estatisticas-ficheiro path tabuleiro pecas profundidade heuristica-resultado custo-resultado tempo-inicial nos-expandidos nos-gerados)
+        ;;(escrever-resultados-ficheiro path tabuleiro pecas profundidade heuristica-resultado custo-resultado tempo-inicial nos-expandidos nos-gerados)
         ))) 
    (T NIL)))
 
@@ -252,8 +252,8 @@
         (ler-algoritmo tabuleiro path problema))
        ((= opcao 1) 'bfs)
        ((= opcao 2) 'dfs)
-       ((= opcao 3) 'a*)
-       ((= opcao 4) 'ida*)
+       ((= opcao 3) 'A*)
+       ((= opcao 4) 'IDA*)
        (T (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [0, 1, 2, 3, 4] ~%") 
           (ler-algoritmo tabuleiro path problema))))))
 
