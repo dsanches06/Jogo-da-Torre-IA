@@ -52,35 +52,16 @@
     (NIL 70 NIL NIL NIL 71 NIL)
     (66 NIL NIL NIL NIL NIL 22)))
 
-(defun move-piece (x y dx dy board)
-  (let ((new-board (copy-tree board))
-        (new-x (+ x dx))
-        (new-y (+ y dy))
-        (piece (nth x (nth y board))) )
-       ;; (if (equal (casa-disponivel new-x new-y board)  't)
-    (when (posicao-validap new-x new-y)
-      (setf (nth x (nth y new-board)) nil
-          (nth new-x (nth new-y new-board)) piece ))
-    new-board));)
+(defun tab6 ()
+  '((55 NIL NIL NIL NIL NIL NIL) 
+      (NIL 72 NIL NIL NIL 73 NIL) 
+      (NIL NIL 65 64 63 NIL NIL) 
+      (NIL 74 75 76 57 47 NIL) 
+      (NIL NIL NIL 67 69 NIL NIL) 
+      (NIL 70 NIL NIL NIL 71 NIL) 
+      (NIL NIL NIL NIL NIL NIL T)))
 
-(defun MOVE (x y n mov board) ;; n is number of squares to move
-  (case mov
-    (UP (move-piece x y 0 (- n) board))
-    (DOWN (move-piece x y 0 n board))
-    (LEFT (move-piece x y (- n) 0 board))
-    (RIGHT (move-piece x y n 0 board))
-    (otherwise NIL) ))
-
-(defun valid-moves (x y board)
-  (let (result)
-    (dolist (mov '(up down left right) result)
-      (dotimes (n 6)
-        (when (move x y n mov board)
-          (push (list n mov) result) )))))
-
-
-
-(defun teste (&optional (tabuleiro (board)))
+(defun teste (&optional (tabuleiro (tab5)))
   ;;imprimir tabuleiro
   (format t "~%------- tabuleiro inicial ---")
   (mostrar-tabuleiro tabuleiro)
@@ -106,9 +87,9 @@
             (mostrar-tabuleiro (jogadas-possiveis (first nova-posicao) (second nova-posicao) novo-tabuleiro))
 
       ;;movimento vertical 2 casa - mov baixo 
-       (let* ((novo-tabuleiro1 (VERTICAL (first nova-posicao) (second nova-posicao) 2 'BAIXO novo-tabuleiro))
+       (let* ((novo-tabuleiro1 (VERTICAL (first nova-posicao) (second nova-posicao) 6 'BAIXO novo-tabuleiro))
               (nova-posicao1 (obter-posicao novo-tabuleiro1)))
-              (format t "~%------- MOVIMENTO VERTICAL => (2 CIMA)  ---")
+              (format t "~%------- MOVIMENTO VERTICAL => (6 BAIXO)  ---")
               (mostrar-tabuleiro novo-tabuleiro1)
           
              ;;obter nova posicao da peça   

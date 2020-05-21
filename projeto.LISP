@@ -13,7 +13,7 @@
 
 (defun mostrar-movimento (sucessores)
   "Mostra os movimentos"
-  (mapcar #'(lambda (x) (format t "~A"(mostrar-tabuleiro (first x)))) sucessores))
+  (mapcar #'(lambda (x) (format t "~A" (mostrar-tabuleiro (first x)))) sucessores))
 
 ;;; Função para imprimir tabuleiro no ficheiro
 (defun mostrar-tabuleiro-ficheiro (tabuleiro file)
@@ -30,46 +30,62 @@
   (let ((path "C:\\Users\\Toshiba\\Downloads\\Dados\\IA\\2019_2020\\ProjetoIA\\Fase I\\"))
     path))
 
+(defun resultado-aux (resultado)
+ (format t "~%No-objetivo:~A~%" (first resultado))
+ (format t "~%No-Pai:~A~%"  (no-pai (first resultado)))
+
+ (format t "~%Sucessores:~A~%" (second resultado))
+ (format t "~%Algoritmo:~A~%" (third resultado))
+ (format t "~%Profundidade:~A~%" (fourth resultado))
+ (format t "~%Tempo:~A~%" (fifth resultado))
+ (format t "~%No-expandido:~A~%" (sixth resultado))
+ (format t "~%No-gerado:~A~%" (seventh resultado))
+)
+
+
+
 (defun escrever-resultados (resultado)
   "Funcao que ira imprimir o resultado para o ecra de uma forma mais clara bem como escrever as estatisticas num ficheiro estatisticas.dat"
   
   (format t "Resultados:~%")
-  (format t "~A~%" resultado)
-  (format t "~%No-Objetivo:~%")
-  (format t "~A~%" (first resultado))
-  (format t "~%Sucessores:~%")
-  (format t "~A~%" (second resultado))
+ (format t "~A~%" resultado)
+ (resultado-aux resultado)
+  ;,(format t "~%No-Objetivo:~%")
+ ;; (format t "~A~%" (first resultado))
+  ;;(format t "~%Sucessores:~%")
+ ;, (format t "~A~%" (second resultado))
+ ;; (mostrar-movimento (second resultado))
   
   (cond
    ((not (null resultado))
     (let* ((no-objetivo (first resultado))
-           (estado-tabuleiro (first no-objetivo))
+           (estado-tabuleiro (first (first no-objetivo)))
            (pecas (no-peca no-objetivo))
-           (profundidade (no-profundidade no-objetivo))
            (heuristica (no-heuristica no-objetivo))
            (custo-uniforme (no-f no-objetivo))
-           (pai (first (no-pai no-objetivo)))
-           (problema (second pai))
-           (objetivo (third pai))
+           (pai (no-pai no-objetivo))
+           (problema (second (first pai)))
+           (objetivo (third (first pai)))
            (sucessores (second resultado))
-           (tempo (third resultado))
-           (nos-expandidos (fourth resultado))
-           (nos-gerados (fifth resultado)))
+           (algoritmo (third resultado))
+           (profundidade (fourth resultado))
+           (tempo (fifth resultado))
+           (nos-expandidos (sixth resultado))
+           (nos-gerados (seventh resultado)))
       (progn
         (format T "~%~@T~@T~@T~@T   +===========================+~%")
         (format T "~@T~@T~@T~@T   |    ESTATISTICAS GERAIS    |~%")
         (format T "~@T~@T~@T~@T   +===========================+~%")
-        ;;(mostrar-objetivo problema T)
         (format T "~%~@T~@T~@T~@T --- NÓ INICIAL ---~%")
         (mostrar-tabuleiro (first pai))
         (format T "~%~@T~@T~@T~@T --- MOVIMENTOS ---~%")
         (mostrar-movimento sucessores)
         (format T "~%~@T~@T~@T~@T --- NÓ OBJETIVO ---~%")
-        (mostrar-tabuleiro  estado-tabuleiro)
+        (mostrar-tabuleiro estado-tabuleiro)
         (format T "~%~@T~@T~@T~@T --- RESULTADOS ---~%")
+        (format T "~@T~@T~@T~@T   Algoritmo: ~A ~%" algoritmo)
         (format T "~@T~@T~@T~@T   Problema: ~A ~%" problema) 
         (format T "~@T~@T~@T~@T   Objetivo: ~A ~%" objetivo) 
-        ;(format T "~@T~@T~@T~@T  Algoritmo: ~A ~%" algoritmo)
         (format T "~@T~@T~@T~@T   Peça: ~A ~%" (first pecas))
         (format T "~@T~@T~@T~@T   Pontuação: ~A ~%" (second pecas))
         (format T "~@T~@T~@T~@T   Profundidade: ~A ~%" profundidade)
@@ -152,12 +168,10 @@
          (pecas-no-raiz (list 'BRANCA 0))
          (heuristica-no-raiz (funcall heuristica tabuleiro pecas-no-raiz))
          (no (criar-no tabuleiro pecas-no-raiz 0 heuristica-no-raiz heuristica-no-raiz NIL)))
-         (format t "~%Heuristica:~A~%" heuristica)
-         (format t "~%Heuristica na raiz:~A~%" heuristica-no-raiz)
     (cond
      ((equal algoritmo 'dfs)
-      (escrever-resultados (dfs no 'no-solucao-p 'gerar-sucessores (operadores) profundidade heuristica)) (iniciar))
-     (T (escrever-resultados (funcall algoritmo no 'no-solucao-p 'gerar-sucessores (operadores) heuristica))
+      (escrever-resultados (dfs no algoritmo 'no-solucao-p 'gerar-sucessores profundidade heuristica)) (iniciar))
+     (T (escrever-resultados (funcall algoritmo no algoritmo 'no-solucao-p 'gerar-sucessores heuristica))
         (iniciar)))))
 
 ;; Função que apresenta a escolha do problema a resolver
