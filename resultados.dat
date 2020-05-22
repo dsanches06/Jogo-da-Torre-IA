@@ -1,0 +1,1080 @@
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(T NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: BFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(T NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: A* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: -1 
+       Custo Uniforme: 1 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(T NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: A* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: -1 
+       Custo Uniforme: 1 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(T NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: A* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 121 
+       Profundidade: 2 
+       Heuristica: 1 
+       Custo Uniforme: 3 
+       Nos Gerados: 5 
+       Nos Expandidos: 3 
+       Penetrancia: 0.4 
+       Fator de Ramificacao: 1.7912865 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(T NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: A* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: -1 
+       Custo Uniforme: 1 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(55 NIL NIL NIL NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL T NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: A* 
+       Problema: B 
+       Objetivo: 200 
+       Peca: BRANCA 
+       Pontuacao: 207 
+       Profundidade: 3 
+       Heuristica: 0 
+       Custo Uniforme: 3 
+       Nos Gerados: 18 
+       Nos Expandidos: 13 
+       Penetrancia: 0.16666667 
+       Fator de Ramificacao: 2.2155724 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(55 NIL NIL NIL NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL T NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: A* 
+       Problema: B 
+       Objetivo: 200 
+       Peca: BRANCA 
+       Pontuacao: 207 
+       Profundidade: 3 
+       Heuristica: 2 
+       Custo Uniforme: 5 
+       Nos Gerados: 14 
+       Nos Expandidos: 12 
+       Penetrancia: 0.21428572 
+       Fator de Ramificacao: 2.0000038 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(55 NIL NIL NIL NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL T NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: A* 
+       Problema: B 
+       Objetivo: 200 
+       Peca: BRANCA 
+       Pontuacao: 207 
+       Profundidade: 3 
+       Heuristica: 1 
+       Custo Uniforme: 4 
+       Nos Gerados: 18 
+       Nos Expandidos: 14 
+       Penetrancia: 0.16666667 
+       Fator de Ramificacao: 2.2155724 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(55 NIL NIL NIL NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL T NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: A* 
+       Problema: B 
+       Objetivo: 200 
+       Peca: BRANCA 
+       Pontuacao: 207 
+       Profundidade: 3 
+       Heuristica: 2 
+       Custo Uniforme: 5 
+       Nos Gerados: 14 
+       Nos Expandidos: 12 
+       Penetrancia: 0.21428572 
+       Fator de Ramificacao: 2.0000038 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(T NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 1 
+       Custo Uniforme: 3 
+       Nos Gerados: 7 
+       Nos Expandidos: 4 
+       Penetrancia: 0.2857143 
+       Fator de Ramificacao: 2.192585 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(T NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 121 
+       Profundidade: 2 
+       Heuristica: 1 
+       Custo Uniforme: 3 
+       Nos Gerados: 7 
+       Nos Expandidos: 4 
+       Penetrancia: 0.2857143 
+       Fator de Ramificacao: 2.192585 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(T NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 121 
+       Profundidade: 2 
+       Heuristica: 1 
+       Custo Uniforme: 3 
+       Nos Gerados: 7 
+       Nos Expandidos: 4 
+       Penetrancia: 0.2857143 
+       Fator de Ramificacao: 2.192585 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(T NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 121 
+       Profundidade: 2 
+       Heuristica: 1 
+       Custo Uniforme: 3 
+       Nos Gerados: 7 
+       Nos Expandidos: 4 
+       Penetrancia: 0.2857143 
+       Fator de Ramificacao: 2.192585 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(T NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: BFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(T NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 1 
+       Custo Uniforme: 3 
+       Nos Gerados: 7 
+       Nos Expandidos: 4 
+       Penetrancia: 0.2857143 
+       Fator de Ramificacao: 2.192585 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(T NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 121 
+       Profundidade: 2 
+       Heuristica: 1 
+       Custo Uniforme: 3 
+       Nos Gerados: 7 
+       Nos Expandidos: 4 
+       Penetrancia: 0.2857143 
+       Fator de Ramificacao: 2.192585 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(T NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: -1 
+       Custo Uniforme: 1 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(T NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 121 
+       Profundidade: 2 
+       Heuristica: 1 
+       Custo Uniforme: 3 
+       Nos Gerados: 7 
+       Nos Expandidos: 4 
+       Penetrancia: 0.2857143 
+       Fator de Ramificacao: 2.192585 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(55 NIL NIL NIL NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL T NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: B 
+       Objetivo: 200 
+       Peca: BRANCA 
+       Pontuacao: 207 
+       Profundidade: 3 
+       Heuristica: 2 
+       Custo Uniforme: 5 
+       Nos Gerados: 27 
+       Nos Expandidos: 20 
+       Penetrancia: 0.11111111 
+       Fator de Ramificacao: 2.6024132 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+     --- NO OBJETIVO ---
+
+	(55 NIL NIL NIL NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL T NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: IDA* 
+       Problema: B 
+       Objetivo: 200 
+       Peca: BRANCA 
+       Pontuacao: 207 
+       Profundidade: 3 
+       Heuristica: 0 
+       Custo Uniforme: 3 
+       Nos Gerados: 18 
+       Nos Expandidos: 13 
+       Penetrancia: 0.16666667 
+       Fator de Ramificacao: 2.2155724 
+       Tempo em Segundos: 0 
+       No Pai:
+	(55 NIL NIL T NIL NIL 77) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL 74 75 76 57 47 NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(NIL NIL NIL NIL NIL NIL NIL) 
+	(66 NIL NIL NIL NIL NIL 22) 
+
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+----------------------------------------------------------------------------------

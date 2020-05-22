@@ -96,7 +96,7 @@
                    (abertos-com-sucessores (abertos-A* abertos-sem-no-inicial sucessores fechados-atualizados)))
               (IDA* (first abertos-com-sucessores) algoritmo funcao-solucao funcao-sucessores operadores heuristica abertos-com-sucessores fechados-atualizados limiar tempo-inicial (1+ nos-expandidos) (+ nos-gerados (length sucessores)) no-inicial-original)))
            ;Se nao existir nenhum no em abertos cujo f seja menor que o limiar, entao muda-se o limiar para o minimo dos f's em abertos e comeca-se tudo outra vez
-           (T (IDA* no-inicial-original funcao-solucao funcao-sucessores operadores heuristica (list no-inicial-original) nil (novo-limiar abertos) tempo-inicial nos-expandidos nos-gerados no-inicial-original))))
+           (T (IDA* no-inicial-original algoritmo funcao-solucao funcao-sucessores operadores heuristica (list no-inicial-original) nil (novo-limiar abertos) tempo-inicial nos-expandidos nos-gerados no-inicial-original))))
          ;se o f do no-atual for menor ou igual que o limiar e no-atual for um no objetivo entao devolve-se o no atual
          ((funcall funcao-solucao no-atual) (list no-atual algoritmo tempo-inicial nos-expandidos nos-gerados)) 
          (T (let* ((sucessores (funcall funcao-sucessores no-atual operadores 'IDA* heuristica))

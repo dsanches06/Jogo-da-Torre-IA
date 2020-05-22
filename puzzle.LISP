@@ -337,7 +337,7 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
                            (pontos-destino (pontos-destino posicao-destino tabuleiro))
                            (estado (list (funcall operador (first posicao-peca) (second posicao-peca) (first jogada) (second jogada) tabuleiro) problema objetivo))
                            (pecas (set-pontos-peca (no-peca no) pontos-destino))
-                           (nova-heuristica (funcall heuristica estado pecas))
+                           (nova-heuristica (funcall heuristica (no-estado no) pecas))
                            (profundidade (1+ (no-profundidade no)))
                            (custo (+ profundidade nova-heuristica)))
                       (format t "~%Novo-Estado: ~A~%" estado)
@@ -440,26 +440,17 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
   "Calcula a heuristica h(x) = o(x)/m(x) em que
   o(x) é o número de pontos que faltam para atingir o valor definido como objetivo
   m(x) é a média por casa dos pontos que constam no tabuleiro x"
-  (format t "~%Heuristica1 - no~%")
-  (mostrar-tabuleiro no)
-  (format t "~%Heuristica2 - peca~A~%" peca)
   (let* ((tabuleiro (no-estado no))
          (objetivo (third no))
          (pontos-atingir (pontos-atingir-objetivo objetivo peca))
-         (pontos-medio (pontos-medio-casa-tabuleiro tabuleiro)))
-         ;(heuristica (round (/ pontos-atingir pontos-medio)))) heuristica))
-    (cond
-     ((or (= pontos-atingir 0) (= pontos-medio 0)) 0);;heuristica 0
-     (T (round (/ pontos-atingir pontos-medio))))))
+         (pontos-medio (pontos-medio-casa-tabuleiro tabuleiro))
+         (heuristica (round (/ pontos-atingir pontos-medio)))) heuristica))
 
 (defun heuristica2 (no &optional (peca NIL))
   "Calcula a heuristica2 para trabalhar com numeros de jogadas possiveis da peça no tabuleiro"
-  (format t "~%Heuristica2 - no~%")
-  (mostrar-tabuleiro no)
-  (format t "~%Heuristica2 - peca~A~%" peca)
-  (mostrar-tabuleiro  (no-estado no))
-    (let* ((tabuleiro (no-estado no)))
-          (cond
-              ;;tabuleiro nula ou peça nula ou não tem jogadas
-             ((or (null tabuleiro) (null peca) (= (length (obter-jogadas tabuleiro)) 0)) 0)
-              (T (length (obter-jogadas tabuleiro))))));;total jogadas-possiveis
+    (cond
+        ((null peca) 0);;se não existe peça, heuristica 0
+        (T (let* ((tabuleiro (no-estado no))
+           (jogadas (obter-jogadas tabuleiro))
+           (heuristica (length jogadas))) heuristica))))
+
