@@ -11,6 +11,11 @@
 ;;------------------------------------------------------------------------------------------------------
 ;;   TABULEIRO 7x7
 ;;------------------------------------------------------------------------------------------------------
+(defun gerar-problema-f()
+  "Função que gera o problema F com peça na posicao x:0, y:3"
+  (substituir 0 3 (gerar-tabuleiro) 'T))
+
+
 (defun gerar-tabuleiro ()
   "Função auxiliar para gerar e baralhar o tabuleiro com casas de 0 a 77
  sem numero com 0, 8 , 9 e ainda sem peça colocada"
@@ -332,7 +337,7 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
                            (pontos-destino (pontos-destino posicao-destino tabuleiro))
                            (estado (list (funcall operador (first posicao-peca) (second posicao-peca) (first jogada) (second jogada) tabuleiro) problema objetivo))
                            (pecas (set-pontos-peca (no-peca no) pontos-destino))
-                           (nova-heuristica (funcall heuristica estado (no-peca no)))
+                           (nova-heuristica (funcall heuristica estado pecas))
                            (profundidade (1+ (no-profundidade no)))
                            (custo (+ profundidade nova-heuristica)))
                       (format t "~%Novo-Estado: ~A~%" estado)
@@ -398,8 +403,8 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
          (pai (no-pai no)))
     (cond  
      ((and (not (null pecas-no)) (not (null pai))
-         ;;numeros de pontos de no for maior que ou igual ao objetivo
-        (>= (second pecas-no) (third (first pai)))) T)
+           ;;numeros de pontos de no for maior que ou igual ao objetivo
+           (>= (second pecas-no) (third (first pai)))) T)
      (T NIL))))
 
 (defun solucao-nao-encontrada () ;função que mostra uma mensagem de solução não encontrada
@@ -408,42 +413,53 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
 ;;------------------------------------------------------------------------------------------------------
 ;;   FUNÇÕES DE CÁLCULO DE HEURISTICAS
 ;;------------------------------------------------------------------------------------------------------
-(defun pontos-atingir-objectivo (objetivo &optional (peca NIL)) 
+(defun pontos-atingir-objetivo (objetivo &optional (peca NIL)) 
   "Função que retorna o número de pontos que faltam para atingir o valor definido como objetivo"
   (let ((pontos (- objetivo (second peca)))) pontos))
 
 (defun pontos-medio-casa-tabuleiro (tabuleiro)
   "Função que calcula a média por casa dos pontos que constam no tabuleiro"
- (cond
-     ((null tabuleiro) 0);;não existe tabuleiro
-     ((= (length (obter-jogadas tabuleiro))  0) 0);;não existe jogada
-  (T (let* ((lista (apply #'append tabuleiro));;converter o tabuleiro 7x7 em uma única lista
-            (nova-lista (loop for n in lista ;;percorrer a lista
-                         if (numberp n) collect n));;colecionar apenas casas que tem numero de pontos
-           (total-casas (length nova-lista));;calcula o numero total de casas da nova lista
-           (soma (apply #'+ nova-lista));;faz a soma dos elementos na lista
-          (media (round (/ soma total-casas))));;calcula a media arredondada
-    media))));;retorna a media
+  (cond
+   ((null tabuleiro) 0);;não existe tabuleiro
+   ((= (length (obter-jogadas tabuleiro))  0) 0);;não existe jogada
+   (T (let* ((lista (apply #'append tabuleiro));;converter o tabuleiro 7x7 em uma única lista
+             (nova-lista (loop for n in lista ;;percorrer a lista
+                             if (numberp n) collect n));;colecionar apenas casas que tem numero de pontos
+             (total-casas (length nova-lista));;calcula o numero total de casas da nova lista
+             (soma (apply #'+ nova-lista));;faz a soma dos elementos na lista
+             (media (round (/ soma total-casas))));;calcula a media arredondada
+        media))));;retorna a media
 
 (defun sem-heuristica (no &optional (peca NIL))
   "Função com uma heurística sem significado para uso nas pesquisas cegas"
   (cond 
-      ((or (null no) (null peca)) 0)
-      (T 0)))
+   ((or (null no) (null peca)) 0)
+   (T 0)))
 
 (defun heuristica1 (no &optional (peca NIL))
   "Calcula a heuristica h(x) = o(x)/m(x) em que
   o(x) é o número de pontos que faltam para atingir o valor definido como objetivo
   m(x) é a média por casa dos pontos que constam no tabuleiro x"
- (format t "~%Heuristica1~%")
- (mostrar-tabuleiro no)
- (let* ((pontos-atingir (pontos-atingir-objectivo (third no) peca))
-        (pontos-medio (pontos-medio-casa-tabuleiro (first no))))
-        (cond
-            ((or (= pontos-atingir 0) (= pontos-medio 0)) 0);;heuristica 0
-            (T (round (/ pontos-atingir pontos-medio))))))
+  (format t "~%Heuristica1 - no~%")
+  (mostrar-tabuleiro no)
+  (format t "~%Heuristica2 - peca~A~%" peca)
+  (let* ((tabuleiro (no-estado no))
+         (objetivo (third no))
+         (pontos-atingir (pontos-atingir-objetivo objetivo peca))
+         (pontos-medio (pontos-medio-casa-tabuleiro tabuleiro)))
+         ;(heuristica (round (/ pontos-atingir pontos-medio)))) heuristica))
+    (cond
+     ((or (= pontos-atingir 0) (= pontos-medio 0)) 0);;heuristica 0
+     (T (round (/ pontos-atingir pontos-medio))))))
 
 (defun heuristica2 (no &optional (peca NIL))
-  "Calcula a heuristica usando as funções auxiliares"
-  
-  )
+  "Calcula a heuristica2 para trabalhar com numeros de jogadas possiveis da peça no tabuleiro"
+  (format t "~%Heuristica2 - no~%")
+  (mostrar-tabuleiro no)
+  (format t "~%Heuristica2 - peca~A~%" peca)
+  (mostrar-tabuleiro  (no-estado no))
+    (let* ((tabuleiro (no-estado no)))
+          (cond
+              ;;tabuleiro nula ou peça nula ou não tem jogadas
+             ((or (null tabuleiro) (null peca) (= (length (obter-jogadas tabuleiro)) 0)) 0)
+              (T (length (obter-jogadas tabuleiro))))));;total jogadas-possiveis

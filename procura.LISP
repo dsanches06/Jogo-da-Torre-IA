@@ -128,7 +128,7 @@
    ((and 
      ;Se o estado do no passado por argumento for igual ao estado do no que estamos a iterar neste momento
      (equal (no-estado no) (no-estado (first lista)))
-    ;Se as pecas do no passado por argumento forem iguais as pecas do no que estamos a iterar neste momento
+     ;Se as pecas do no passado por argumento forem iguais as pecas do no que estamos a iterar neste momento
      (equal (no-peca no) (no-peca (first lista)))) T) 
    (T (existep no (rest lista)))))
 

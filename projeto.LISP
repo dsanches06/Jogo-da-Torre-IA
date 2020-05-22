@@ -37,14 +37,12 @@
   )
 
 
-(defun escrever-resultados (resultado)
+(defun escrever-resultados (resultado path)
   "Funcao que ira imprimir o resultado para o ecra de uma forma mais clara bem como escrever as estatisticas num ficheiro estatisticas.dat"
   
   (format t "~%Resultados:~%")
   (format t "~A~%" resultado)
   (resultado-aux (first resultado))
-  
-  
   
   (cond
    ((not (null resultado))
@@ -90,14 +88,62 @@
         (format T "~%~@T~@T~@T~@T   +===========================+~%")
         (format T "~@T~@T~@T~@T   |     FIM DA ESTATISTICA    |~%")
         (format T "~@T~@T~@T~@T   +===========================+~%~%")
-        
-        ;;(escrever-resultados-ficheiro path tabuleiro pecas profundidade heuristica-resultado custo-resultado tempo-inicial nos-expandidos nos-gerados)
-        ))) 
+        ;;escrever resultados no ficheiro
+        (escrever-resultados-ficheiro resultado path))))
    (T NIL)))
 
-
-
-;;;	(format file "================================================================================================================~%~%"))
+(defun escrever-resultados-ficheiro (resultado path)
+  "Funcao que permite a escrita das estatisticas para um ficheiro resultados.dat"
+  (with-open-file (file (concatenate 'string path "resultados.dat")
+                        :direction :output
+                        :if-exists :append
+                        :if-does-not-exist :create)
+    (cond
+     ((not (null resultado))
+      (let* ((no-objetivo (first resultado))
+             (estado-tabuleiro (first (first no-objetivo)))
+             (pecas (no-peca no-objetivo))
+             (profundidade (no-profundidade no-objetivo))
+             (heuristica (no-heuristica no-objetivo))
+             (custo-uniforme (no-f no-objetivo))
+             (pai (first (no-raiz no-objetivo)))
+             (problema (second pai))
+             (objetivo (third pai))
+             (algoritmo (second resultado))
+             (tempo (third resultado))
+             (nos-expandidos (fourth resultado))
+             (nos-gerados (fifth resultado)))
+        (progn
+          (format file "~@T~@T~@T~@T +===========================+~%")
+          (format file "~@T~@T~@T~@T |    ESTATISTICAS GERAIS    |~%")
+          (format file "~@T~@T~@T~@T +===========================+~%")
+          (format file "~%~@T~@T~@T~@T --- NO INICIAL ---~%")
+          (mostrar-tabuleiro-ficheiro (first pai) file)
+          (format file "~%~@T~@T~@T~@T --- MOVIMENTOS ---~%")
+          ;;(mostrar-movimento no-objetivo)
+          (format file "~%~@T~@T~@T~@T --- NO OBJETIVO ---~%")
+          (mostrar-tabuleiro-ficheiro estado-tabuleiro file)
+          (format file "~%~@T~@T~@T~@T --- RESULTADOS ---~%")
+          (format file "~@T~@T~@T~@T   Algoritmo: ~A ~%" algoritmo)
+          (format file "~@T~@T~@T~@T   Problema: ~A ~%" problema) 
+          (format file "~@T~@T~@T~@T   Objetivo: ~A ~%" objetivo) 
+          (format file "~@T~@T~@T~@T   Peca: ~A ~%" (first pecas))
+          (format file "~@T~@T~@T~@T   Pontuacao: ~A ~%" (second pecas))
+          (format file "~@T~@T~@T~@T   Profundidade: ~A ~%" profundidade)
+          (format file "~@T~@T~@T~@T   Heuristica: ~A ~%" heuristica)
+          (format file "~@T~@T~@T~@T   Custo Uniforme: ~A ~%" custo-uniforme)
+          (format file "~@T~@T~@T~@T   Nos Gerados: ~A ~%" nos-gerados)    
+          (format file "~@T~@T~@T~@T   Nos Expandidos: ~A ~%" nos-expandidos)  
+          (format file "~@T~@T~@T~@T   Penetrancia: ~A ~%" (penetrancia profundidade nos-gerados))
+          (format file "~@T~@T~@T~@T   Fator de Ramificacao: ~A ~%" (fator-ramificacao profundidade nos-gerados))
+          (format file "~@T~@T~@T~@T   Tempo em Segundos: ~A ~%" (- (get-universal-time) tempo))
+          (format file "~@T~@T~@T~@T   No Pai:")
+          (mostrar-tabuleiro-ficheiro (first pai) file)
+          (format file "~%~@T~@T~@T~@T +===========================+~%")
+          (format file "~@T~@T~@T~@T |     FIM DA ESTATISTICA    |~%")
+          (format file "~@T~@T~@T~@T +===========================+~%") 
+          (format file "~%----------------------------------------------------------------------------------~%")))) 
+     (T NIL))))
 
 ;===========================================================================
 ;       FUNÇÕES PARA INTER-ACÇÃO DO UTILIZADOR
@@ -163,8 +209,8 @@
          (no (criar-no tabuleiro pecas-no-raiz 0 heuristica-no-raiz heuristica-no-raiz NIL)))
     (cond
      ((equal algoritmo 'dfs)
-      (escrever-resultados (dfs no algoritmo 'no-solucao-p 'gerar-sucessores (operadores) profundidade heuristica)) (iniciar))
-     (T (escrever-resultados (funcall algoritmo no algoritmo 'no-solucao-p 'gerar-sucessores (operadores) heuristica))
+      (escrever-resultados (dfs no algoritmo 'no-solucao-p 'gerar-sucessores (operadores) profundidade heuristica) path) (iniciar))
+     (T (escrever-resultados (funcall algoritmo no algoritmo 'no-solucao-p 'gerar-sucessores (operadores) heuristica) path)
         (iniciar)))))
 
 ;; Função que apresenta a escolha do problema a resolver
@@ -192,7 +238,7 @@
               (tabuleiroC (list (ler-tabuleiro-ficheiro file) 'C 300))
               (tabuleiroD (list (ler-tabuleiro-ficheiro file) 'D 425))
               (tabuleiroE (list (ler-tabuleiro-ficheiro file) 'E 525))
-              ;;(tabuleiroF (list (ler-tabuleiro-ficheiro file) 'F 1000))
+              (tabuleiroF (list (gerar-problema-f) 'F 1000))
               ;;(tabuleiroG (list (ler-tabuleiro-ficheiro file) 'G 'NIL')) ;Problema G da avaliacao oral
               
               )
@@ -205,7 +251,7 @@
            ((= opcao 3) tabuleiroC)
            ((= opcao 4) tabuleiroD)
            ((= opcao 5) tabuleiroE)
-           ;;((= opcao 6) tabuleiroF)
+           ((= opcao 6) tabuleiroF)
            ;((= opcao 7) tabuleiroG)
            (T (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [0, 1, 2, 3, 4, 5, 6, 7] ~%") (ler-tabuleiro path))))))))	
 
@@ -219,21 +265,21 @@
      ((equal linha 'break) NIL))))		
 
 ;;; Função que apresenta o objetivo do problema escolhido
-(defun mostrar-objetivo (problema tipo) 
+(defun mostrar-objetivo (problema) 
   "Permite mostrar o objetivo do problema para escrita em consola e file"
   (cond
-   ((equal problema 'A) (format tipo "~%      --- PROBLEMA ~A: Objectivo 100 pontos ---~%" problema))
-   ((equal problema 'B) (format tipo "~%      --- PROBLEMA ~A: Objectivo 200 pontos ---~%" problema))
-   ((equal problema 'C) (format tipo "~%      --- PROBLEMA ~A: Objectivo 300 pontos ---~%" problema))
-   ((equal problema 'D) (format tipo "~%      --- PROBLEMA ~A: Objectivo 425 pontos ---~%" problema))
-   ((equal problema 'E) (format tipo "~%      --- PROBLEMA ~A: Objectivo 525 pontos ---~%" problema))
-   ((equal problema 'F) (format tipo "~%      --- PROBLEMA ~A: Objectivo 1000 pontos ---~%" problema))))		
+   ((equal problema 'A) (format t "~%      --- PROBLEMA ~A: Objectivo 100 pontos ---~%" problema))
+   ((equal problema 'B) (format t "~%      --- PROBLEMA ~A: Objectivo 200 pontos ---~%" problema))
+   ((equal problema 'C) (format t "~%      --- PROBLEMA ~A: Objectivo 300 pontos ---~%" problema))
+   ((equal problema 'D) (format t "~%      --- PROBLEMA ~A: Objectivo 425 pontos ---~%" problema))
+   ((equal problema 'E) (format t "~%      --- PROBLEMA ~A: Objectivo 525 pontos ---~%" problema))
+   ((equal problema 'F) (format t "~%      --- PROBLEMA ~A: Objectivo 1000 pontos ---~%" problema))))		
 
 ;;; Função que apresenta a escolha do algoritimo a usar
 (defun ler-algoritmo (tabuleiro path problema)
   "Permite escolher o algoritimo para resolver o problema"
   (progn
-    (mostrar-objetivo problema T)
+    (mostrar-objetivo problema)
     (mostrar-tabuleiro tabuleiro)
     (format T "~%")
     (format T "~@T~@T~@T~@T +=========================================+~%")
