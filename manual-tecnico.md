@@ -48,13 +48,9 @@ jogo-torre/
         └── problemas.dat ; Ficheiro com os tabuleiros iniciais do problema
 ```
 
-<br/><br/>
-
 <h1>Detalhes da Implementação</h1>
 
  Dado que Common Lisp é uma linguagem de programação de natureza funcional o desenvolvimento da aplicação consistiu em desenvolver código num paradigma funcional, deste modo algumas técnicas como sequênciação, ciclos e atribuição não foram utilizadas para poder-se focar na recursividade e desenvolvimento de funções. Embora tenham sido permitidas algumas utilizações especiais de ciclos e atribuições, estes não foram utilizados.
-
-<br/><br/>
 
 <h1>Estudo dos Algoritmos</h1>
 
