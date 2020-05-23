@@ -1,26 +1,47 @@
 ;;;; puzzle.lisp
 ;;;; Disciplina de IA - 2019 / 2020
 ;;;; Autor:
+
 ;===========================================================================
-;       FUNÇÕES PARA CRIAR E MOSTRA OS DADOS DO TABULEIRO
+;       FUNÇÕES PARA MOSTRAR TABULEIROS E SEUS MOVIMENTOS
 ;===========================================================================
 ;;; Função para mostrar o tabuleiro
-(defun mostrar-tabuleiro (tabuleiro)
+(defun mostrar-tabuleiro (tabuleiro &optional(tipo T))
   "Mostra o tabuleiro"
-  (format t "~%")
-  (mapcar (lambda (x) (format T "~@T~@T~@T~@T~@T ~A ~%" x)) tabuleiro)
+  (format tipo "~%")
+  (mapcar (lambda (x) (format tipo "~@T~@T~@T~@T~@T ~A ~%" x)) tabuleiro)
   (format NIL ""))
 
-(defun mostrar-movimento (sucessores)
-  "Mostra os movimentos"
-  (mapcar #'(lambda (x) (format t "~A" (mostrar-tabuleiro x))) sucessores))
+(defun mostrar-movimento (no &optional(tipo T))
+"Função que mostra os movimentos da peça no tabuleiro"
+   (let* ((resultado (apply #'append (obter-movimento no)))
+          (movimentos (reverse (obter-listas resultado))))
+          (mapcar #'(lambda (x) (mostrar-tabuleiro x tipo)) (rest movimentos))))
 
-;;; Função para imprimir tabuleiro no ficheiro
-(defun mostrar-tabuleiro-ficheiro (tabuleiro file)
-  "permite imprimir tabuleiro no ficheiro"
-  (format file "~%")
-  (mapcar (lambda (x) (format file "	~A ~%" x)) tabuleiro)
-  (format NIL ""))
+(defun obter-movimento (no)
+ "Função para obter movimentos de um no"
+ (cond 
+     ((null (second no)) (first no))
+     (T (let* ((movimento (no-movimento no)))
+            (cons (first movimento) (obter-movimento (second movimento)))))))
+
+(defun no-movimento (no)
+ "Função que recebe um nó e retorna a lista de movimentos"
+     (loop for i in no
+                     if (and (not (numberp i)) (not (equal (first i) 'BRANCA)) )  
+                           collect i))
+(defun obter-listas (no)
+ "Função para recebe um no e retorna a lista de listas"
+ (loop for i in no
+            if (listp i) collect i))
+
+;; current-date-string [Data actual] - obtem a data do sistema
+(defun current-date-string () 
+ "Retorna a data no formato de string"
+	(multiple-value-bind (sec min hr day mon yr dow dst-p tz)
+		(get-decoded-time)
+		(declare (ignore dow dst-p tz))	
+		(format nil "~2,'0D/~2,'0D/~A ~2,'0D:~2,'0D:~2,'0D" day mon yr hr min sec)))
 
 ;===========================================================================
 ;       FUNÇÕES DE LEITURA E ESCRITA
@@ -30,20 +51,8 @@
   (let ((path "C:\\Users\\Toshiba\\Downloads\\Dados\\IA\\2019_2020\\ProjetoIA\\Fase I\\"))
     path))
 
-
-(defun resultado-aux (resultado)
-  (format t "~%No-Objetivo:~A~%" resultado)
-  
-  )
-
-
 (defun escrever-resultados (resultado path)
   "Funcao que ira imprimir o resultado para o ecra de uma forma mais clara bem como escrever as estatisticas num ficheiro estatisticas.dat"
-  
-  (format t "~%Resultados:~%")
-  (format t "~A~%" resultado)
-  (resultado-aux (first resultado))
-  
   (cond
    ((not (null resultado))
     (let* ((no-objetivo (first resultado))
@@ -66,7 +75,7 @@
         (format T "~%~@T~@T~@T~@T --- NÓ INICIAL ---~%")
         (mostrar-tabuleiro (first pai))
         (format T "~%~@T~@T~@T~@T --- MOVIMENTOS ---~%")
-        ;;(mostrar-movimento no-objetivo)
+        (mostrar-movimento no-objetivo)
         (format T "~%~@T~@T~@T~@T --- NÓ OBJETIVO ---~%")
         (mostrar-tabuleiro estado-tabuleiro)
         (format T "~%~@T~@T~@T~@T --- RESULTADOS ---~%")
@@ -114,15 +123,16 @@
              (nos-expandidos (fourth resultado))
              (nos-gerados (fifth resultado)))
         (progn
+          (format file "~%---------------------------------- Gerado em ~s ------------------------------------------------~%~%" (current-date-string))
           (format file "~@T~@T~@T~@T +===========================+~%")
           (format file "~@T~@T~@T~@T |    ESTATISTICAS GERAIS    |~%")
           (format file "~@T~@T~@T~@T +===========================+~%")
           (format file "~%~@T~@T~@T~@T --- NO INICIAL ---~%")
-          (mostrar-tabuleiro-ficheiro (first pai) file)
+          (mostrar-tabuleiro (first pai) file)
           (format file "~%~@T~@T~@T~@T --- MOVIMENTOS ---~%")
-          ;;(mostrar-movimento no-objetivo)
+          (mostrar-movimento no-objetivo file)
           (format file "~%~@T~@T~@T~@T --- NO OBJETIVO ---~%")
-          (mostrar-tabuleiro-ficheiro estado-tabuleiro file)
+          (mostrar-tabuleiro estado-tabuleiro file)
           (format file "~%~@T~@T~@T~@T --- RESULTADOS ---~%")
           (format file "~@T~@T~@T~@T   Algoritmo: ~A ~%" algoritmo)
           (format file "~@T~@T~@T~@T   Problema: ~A ~%" problema) 
@@ -138,11 +148,10 @@
           (format file "~@T~@T~@T~@T   Fator de Ramificacao: ~A ~%" (fator-ramificacao profundidade nos-gerados))
           (format file "~@T~@T~@T~@T   Tempo em Segundos: ~A ~%" (- (get-universal-time) tempo))
           (format file "~@T~@T~@T~@T   No Pai:")
-          (mostrar-tabuleiro-ficheiro (first pai) file)
+          (mostrar-tabuleiro (first pai) file)
           (format file "~%~@T~@T~@T~@T +===========================+~%")
           (format file "~@T~@T~@T~@T |     FIM DA ESTATISTICA    |~%")
-          (format file "~@T~@T~@T~@T +===========================+~%") 
-          (format file "~%----------------------------------------------------------------------------------~%")))) 
+          (format file "~@T~@T~@T~@T +===========================+~%"))))
      (T NIL))))
 
 ;===========================================================================
@@ -311,9 +320,9 @@
     (format T "~%~@T~@T~@T~@T Insira a profundidade maxima que deseja para o algoritmo: ") 
     (ler-profundidade (read)))
    ((not (numberp resposta)) 
-    (format T "~%~@T~@T~@T~@T Por favor insira um numero maior do que 0 ~%") (ler-profundidade))
-   ((<= resposta 0) 
-    (format T "~%~@T~@T~@T~@T Por favor insira um numero maior do que 0 ~%") (ler-profundidade))
+    (format T "~%~@T~@T~@T~@T Por favor insira um numero maior do que 1. ~%") (ler-profundidade))
+   ((<= resposta 1) 
+    (format T "~%~@T~@T~@T~@T Por favor insira um numero maior do que 1. ~%") (ler-profundidade))
    (T resposta)))
 
 

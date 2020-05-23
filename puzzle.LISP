@@ -133,7 +133,7 @@
    ((= pontos 0) tabuleiro)
    (T (let* ((lista-nova (apply #'append tabuleiro));;converter o tabuleiro 7x7 em uma única lista
              (lista-max (loop for n in lista-nova ;;percorrer a nova lista
-                            if (and (numberp n)(equal (digitos-iguais n) 'T));; (> n pontos))
+                            if (and (numberp n)(equal (digitos-iguais n) 'T))
                             collect n)))
         (cond 
          ((equal lista-max 'NIL) tabuleiro)
@@ -309,10 +309,6 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
 ;;------------------------------------------------------------------------------------------------------
 (defun gerar-sucessores (no operadores algoritmo &optional (heuristica NIL) (profundidade NIL))
   "Funcao que devolve a lista de todos os sucessores de um determinado no passado como argumento"
-  
-  (format t "~%~@T~@T~@T~@T--- Tabuleiro ---")
-  (mostrar-tabuleiro (first (no-estado no)))
-  
   (cond
    ((equal algoritmo 'dfs)
     (cond
@@ -328,7 +324,6 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
          (problema (second (no-estado no)))
          (objetivo (third (no-estado no)))
          (jogadas-possiveis (obter-jogadas tabuleiro)))
-    (format t "~%Jogadas possiveis: ~A~%" jogadas-possiveis)
     (cond
      ((= (length jogadas-possiveis) 0) NIL);; se não houver jogada, sai
      (T (mapcar #'(lambda (jogada) 
@@ -340,7 +335,6 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
                            (nova-heuristica (funcall heuristica (no-estado no) pecas))
                            (profundidade (1+ (no-profundidade no)))
                            (custo (+ profundidade nova-heuristica)))
-                      (format t "~%Novo-Estado: ~A~%" estado)
                       (criar-no estado pecas profundidade nova-heuristica custo no))) jogadas-possiveis)))))
 
 (defun obter-jogadas (tabuleiro)
