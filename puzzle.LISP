@@ -1,7 +1,9 @@
+;===========================================================================
+;       FUNÇÕES PARA RESOLVER OS PROBLEMAS DEFINIDOS
+;===========================================================================
 ;;;; puzzle.lisp
 ;;;; Disciplina de IA - 2019 / 2020
 ;;;; Autor:
-
 ;;------------------------------------------------------------------------------------------------------
 ;;  VARIAVEIS GLOBAIS
 ;;------------------------------------------------------------------------------------------------------
@@ -11,10 +13,9 @@
 ;;------------------------------------------------------------------------------------------------------
 ;;   TABULEIRO 7x7
 ;;------------------------------------------------------------------------------------------------------
-(defun gerar-problema-f()
+(defun gerar-problema()
   "Função que gera o problema F com peça na posicao x:0, y:3"
   (substituir 0 3 (gerar-tabuleiro) 'T))
-
 
 (defun gerar-tabuleiro ()
   "Função auxiliar para gerar e baralhar o tabuleiro com casas de 0 a 77
@@ -312,7 +313,7 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
   (cond
    ((equal algoritmo 'dfs)
     (cond
-     ((>= (no-profundidade no) profundidade) NIL) ;So se aplica os sucessores caso a profundidade do no seja inferior a profundidade maxima
+     ((>= (no-profundidade no) profundidade) NIL);So se aplica os sucessores caso a profundidade do no seja inferior a profundidade maxima
      (T (remover-jogadas-invalidas (apply #'append (mapcar #'(lambda (operador)
                                                                (aplicar-operador-no no operador heuristica)) operadores))))))
    (T (remover-jogadas-invalidas (apply #'append (mapcar #'(lambda (operador)
@@ -335,6 +336,8 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
                            (nova-heuristica (funcall heuristica (no-estado no) pecas))
                            (profundidade (1+ (no-profundidade no)))
                            (custo (+ profundidade nova-heuristica)))
+                      ;(format t "~%Novo Estado:")
+                      ;(mostrar-tabuleiro (first estado)) 
                       (criar-no estado pecas profundidade nova-heuristica custo no))) jogadas-possiveis)))))
 
 (defun obter-jogadas (tabuleiro)
@@ -402,7 +405,10 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
      (T NIL))))
 
 (defun solucao-nao-encontrada () ;função que mostra uma mensagem de solução não encontrada
-  (format t "~%SOLUÇÃO NÃO ENCONTRADA!!!~%"))	
+  (format T "~%")
+  (format T "~@T~@T~@T~@T +=========================================+~%")
+  (format T "~@T~@T~@T~@T |         SOLUÇÃO NÃO ENCONTRADA!!!       |~%")
+  (format T "~@T~@T~@T~@T +=========================================+~%~%"))	
 
 ;;------------------------------------------------------------------------------------------------------
 ;;   FUNÇÕES DE CÁLCULO DE HEURISTICAS
@@ -442,9 +448,9 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
 
 (defun heuristica2 (no &optional (peca NIL))
   "Calcula a heuristica2 para trabalhar com numeros de jogadas possiveis da peça no tabuleiro"
-    (cond
-        ((null peca) 0);;se não existe peça, heuristica 0
-        (T (let* ((tabuleiro (no-estado no))
-           (jogadas (obter-jogadas tabuleiro))
-           (heuristica (length jogadas))) heuristica))))
+  (cond
+   ((null peca) 0);;se não existe peça, heuristica 0
+   (T (let* ((tabuleiro (no-estado no))
+             (jogadas (obter-jogadas tabuleiro))
+             (heuristica (length jogadas))) heuristica))))
 

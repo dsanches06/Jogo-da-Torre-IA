@@ -1,72 +1,56 @@
-;;;; puzzle.lisp
+;===========================================================================
+;       FUNÇÕES PARA PROCURA NO ESPAÇO
+;===========================================================================
+;;;; procura.lisp
 ;;;; Disciplina de IA - 2019 / 2020
 ;;;; Autor:
 ;===========================================================================
-;       FUNÇÕES PARA PROCURA NO ESPAÇO
+;       FUNÇÃO DE PROCURA EM LARGURA - BFS
 ;===========================================================================
 (defun bfs (no-inicial algoritmo funcao-solucao funcao-sucessores operadores heuristica &optional (abertos (list no-inicial)) (fechados nil) (tempo-inicial (get-universal-time)) (nos-expandidos 0)(nos-gerados 0))
   "Funcao que implementa o algoritmo de procura em largura"
   (cond
-   ((null abertos) nil) ;Se a lista de abertos estiver vazia, falha
+   ((null abertos) (solucao-nao-encontrada)) ;Se a lista de abertos estiver vazia, falha, soluçao nao encontrada
    (T (let* ((no-atual (first abertos))
              (abertos-sem-no-inicial (rest abertos))
              (fechados-com-no-inicial (cons no-atual fechados))
              (sucessores (remover-nos-repetidos (funcall funcao-sucessores no-atual operadores 'bfs heuristica) abertos-sem-no-inicial fechados-com-no-inicial))
              (abertos-com-sucessores (abertos-bfs abertos-sem-no-inicial sucessores)))
-        
-        ; (format t "~%----------------BFS------------------------------~%") 
-        ; (format t "~%No-Atual:")
-        ; (mostrar-tabuleiro  (first no-atual))
-        ; (format t "~%Abertos-sem-inicial: ~A ~%" abertos-sem-no-inicial)
-        ; (format t "~%Fechados-com-no-inicial:")
-        ; (mostrar-tabuleiro (first (first fechados-com-no-inicial)))
-        ; (format t "~%Sucessores: ~A ~%" sucessores)
-        ; (format t "~%Abertos-com-sucessores: ~A ~%" (first abertos-com-sucessores))
-        ; (format t "~%---------------------------------------------~%~%")
-        
         (cond
          ;Se existir uma solucao nos sucessores, vamos a procura dessa solucao
          ((existe-solucaop sucessores funcao-solucao) 
           (list (procura-no-objetivo sucessores funcao-solucao) algoritmo tempo-inicial (1+ nos-expandidos) (+ nos-gerados (length sucessores))))
          (T (bfs (first abertos-com-sucessores) algoritmo funcao-solucao funcao-sucessores operadores heuristica abertos-com-sucessores fechados-com-no-inicial tempo-inicial (1+ nos-expandidos) (+ nos-gerados (length sucessores)))))))))
 
-
+;===========================================================================
+;       FUNÇÃO DE PROCURA EM PROFUNDIDADE - DFS
+;===========================================================================
 (defun dfs (no-inicial algoritmo funcao-solucao funcao-sucessores operadores profundidade heuristica &optional (abertos (list no-inicial)) (fechados nil) (tempo-inicial (get-universal-time)) (nos-expandidos 0) (nos-gerados 0))
   "Funcao que implementa o algoritmo de procura em profundidade"
   (cond
-   ((null abertos) nil) ;Se abertos vazia falha
+   ((null abertos) (solucao-nao-encontrada));Se abertos vazia falha, soluçao nao encontrada
    (T (let* ((no-atual (first abertos))
              (abertos-sem-no-inicial (rest abertos))
-             (fechados-com-no-inicial (cons no-atual fechados))) 
-        
-        ;;(format t "~%----------------DFS------------------------------~%") 
-        ;;(format t "~%No-Atual:")
-        ;;(mostrar-tabuleiro  (first no-atual))
-        ;;(format t "~%Abertos-sem-inicial: ~A ~%" abertos-sem-no-inicial)
-        ;;      (format t "~%Fechados-com-no-inicial:")
-        ;;(mostrar-tabuleiro (first fechados-com-no-inicial))
-        
+             (fechados-com-no-inicial (cons no-atual fechados)))         
         (cond
          ;Se a profundidade do no atual ultrapassar a profundidade maxima passa-se para o no seguinte
          ((> (no-profundidade no-atual) profundidade) 
           (dfs (first abertos-sem-no-inicial) funcao-solucao funcao-sucessores operadores profundidade heuristica abertos-sem-no-inicial fechados-com-no-inicial tempo-inicial nos-expandidos nos-gerados))
          (T (let* ((sucessores (remover-nos-repetidos (funcall funcao-sucessores no-atual operadores 'dfs heuristica profundidade) abertos-sem-no-inicial fechados-com-no-inicial))
                    (abertos-com-sucessores (abertos-dfs abertos-sem-no-inicial sucessores)))
-              
-              ;; (format t "~%Sucessores: ~A ~%" sucessores)
-              ;;(format t "~%Abertos-com-sucessores: ~A ~%" abertos-com-sucessores)
-              ;;(format t "~%---------------------------------------------~%~%")
-              
               (cond
                ;Se existir uma solucao nos sucessores, vamos a procura dessa solucao
                ((existe-solucaop sucessores funcao-solucao) 
                 (list (procura-no-objetivo sucessores funcao-solucao) algoritmo tempo-inicial (1+ nos-expandidos) (+ nos-gerados (length sucessores))))
                (T (dfs (first abertos-com-sucessores) algoritmo funcao-solucao funcao-sucessores operadores profundidade heuristica abertos-com-sucessores fechados-com-no-inicial tempo-inicial (1+ nos-expandidos) (+ nos-gerados (length sucessores))))))))))))
 
+;===========================================================================
+;       FUNÇÃO DE PROCURA A*
+;===========================================================================
 (defun A* (no-inicial algoritmo funcao-solucao funcao-sucessores operadores heuristica &optional (abertos (list no-inicial)) (fechados nil) (tempo-inicial (get-universal-time)) (nos-expandidos 0) (nos-gerados 0))
   "Funcao que implementa o algoritmo de procura A*"
   (cond
-   ((null abertos) nil) ;Se abertos vazia falha
+   ((null abertos) (solucao-nao-encontrada));Se abertos vazia falha, soluçao nao encontrada
    (T (let* ((no-atual (first abertos)) 
              (abertos-sem-no-inicial (rest abertos))  ;Retira o primeiro no de abertos, o que possui o menor f
              (fechados-com-no-inicial (cons no-atual fechados))) ;Insere o primeiro no de abertos em fechados
@@ -78,10 +62,13 @@
                    (abertos-com-sucessores (abertos-A* abertos-sem-no-inicial sucessores fechados-atualizados))) ;Insere todos os sucessores nao existentes em abertos nem fechados na lista de abertos, atualiza os nos de abertos que tenham f's maiores do que os nos dos sucessores
               (A* (first abertos-com-sucessores) algoritmo funcao-solucao funcao-sucessores operadores heuristica abertos-com-sucessores fechados-atualizados tempo-inicial (1+ nos-expandidos) (+ nos-gerados (length sucessores))))))))))
 
+;===========================================================================
+;       FUNÇÃO DE PROCURA IDA*
+;===========================================================================
 (defun IDA* (no-inicial algoritmo funcao-solucao funcao-sucessores operadores heuristica &optional (abertos (list no-inicial)) (fechados nil) (limiar (no-f no-inicial)) (tempo-inicial (get-universal-time)) (nos-expandidos 0) (nos-gerados 0) (no-inicial-original no-inicial))
   "Funcao que imlementa o algoritmo IDA*"
   (cond
-   ((null abertos) nil) ;Se abertos vazio falha
+   ((null abertos) (solucao-nao-encontrada));Se abertos vazia falha, soluçao nao encontrada
    (T (let* ((no-atual (first abertos))
              (abertos-sem-no-inicial (rest abertos))
              (fechados-com-no-inicial (cons no-atual fechados)))

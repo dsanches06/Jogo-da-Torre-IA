@@ -1,7 +1,9 @@
-;;;; puzzle.lisp
+;===========================================================================
+;     CARREGA FIHCEIROS E TRATA DA INTERAÇÃO COM UTILIZADOR
+;===========================================================================
+;;;; projeto.lisp
 ;;;; Disciplina de IA - 2019 / 2020
 ;;;; Autor:
-
 ;===========================================================================
 ;       FUNÇÕES PARA MOSTRAR TABULEIROS E SEUS MOVIMENTOS
 ;===========================================================================
@@ -13,35 +15,35 @@
   (format NIL ""))
 
 (defun mostrar-movimento (no &optional(tipo T))
-"Função que mostra os movimentos da peça no tabuleiro"
-   (let* ((resultado (apply #'append (obter-movimento no)))
-          (movimentos (reverse (obter-listas resultado))))
-          (mapcar #'(lambda (x) (mostrar-tabuleiro x tipo)) (rest movimentos))))
+  "Função que mostra os movimentos da peça no tabuleiro"
+  (let* ((resultado (apply #'append (obter-movimento no)))
+         (movimentos (reverse (obter-listas resultado))))
+    (mapcar (lambda (x) (mostrar-tabuleiro x tipo)) (rest movimentos))))
 
 (defun obter-movimento (no)
- "Função para obter movimentos de um no"
- (cond 
-     ((null (second no)) (first no))
-     (T (let* ((movimento (no-movimento no)))
-            (cons (first movimento) (obter-movimento (second movimento)))))))
+  "Função para obter movimentos de um no"
+  (cond 
+   ((null (second no)) (first no))
+   (T (let* ((movimento (no-movimento no)))
+        (cons (first movimento) (obter-movimento (second movimento)))))))
 
 (defun no-movimento (no)
- "Função que recebe um nó e retorna a lista de movimentos"
-     (loop for i in no
-                     if (and (not (numberp i)) (not (equal (first i) 'BRANCA)) )  
-                           collect i))
+  "Função que recebe um nó e retorna a lista de movimentos"
+  (loop for i in no
+      if (and (not (numberp i)) (not (equal (first i) 'BRANCA)) )  
+      collect i))
 (defun obter-listas (no)
- "Função para recebe um no e retorna a lista de listas"
- (loop for i in no
-            if (listp i) collect i))
+  "Função para recebe um no e retorna a lista de listas"
+  (loop for i in no
+      if (listp i) collect i))
 
 ;; current-date-string [Data actual] - obtem a data do sistema
 (defun current-date-string () 
- "Retorna a data no formato de string"
-	(multiple-value-bind (sec min hr day mon yr dow dst-p tz)
-		(get-decoded-time)
-		(declare (ignore dow dst-p tz))	
-		(format nil "~2,'0D/~2,'0D/~A ~2,'0D:~2,'0D:~2,'0D" day mon yr hr min sec)))
+  "Retorna a data no formato de string"
+  (multiple-value-bind (sec min hr day mon yr dow dst-p tz)
+      (get-decoded-time)
+    (declare (ignore dow dst-p tz))	
+    (format nil "~2,'0D/~2,'0D/~A ~2,'0D:~2,'0D:~2,'0D" day mon yr hr min sec)))
 
 ;===========================================================================
 ;       FUNÇÕES DE LEITURA E ESCRITA
@@ -172,10 +174,8 @@
 (defun carregar-ficheiros (path)
   "Permite que compila e carregar os ficheiros do projeto para ser executados"
   (progn 
-    ;(compile-file (concatenate 'string path "puzzle.lisp"))
     ;(compile-file (concatenate 'string path "procura.lisp"))
-    ;(load (concatenate 'string path "puzzle.fasl"))
-    ;(load (concatenate 'string path "procura.fasl"))
+    ;(compile-file (concatenate 'string path "puzzle.lisp"))
     (load (concatenate 'string path "puzzle.ofasl"))
     (load (concatenate 'string path "procura.ofasl"))
     (menu-principal path)))
@@ -211,15 +211,15 @@
                         ((equal algoritmo 'dfs) (ler-profundidade))
                         (T NIL)))
          (heuristica (cond
-                      ((or (equal algoritmo 'a*) (equal algoritmo 'ida*)) (ler-heuristica path))
+                      ((or (equal algoritmo 'A*) (equal algoritmo 'IDA*)) (ler-heuristica path))
                       (T 'sem-heuristica)))
          (pecas-no-raiz (list 'BRANCA 0))
          (heuristica-no-raiz (funcall heuristica tabuleiro pecas-no-raiz))
-         (no (criar-no tabuleiro pecas-no-raiz 0 heuristica-no-raiz heuristica-no-raiz NIL)))
+         (no-inicial (criar-no tabuleiro pecas-no-raiz 0 heuristica-no-raiz heuristica-no-raiz NIL)))
     (cond
      ((equal algoritmo 'dfs)
-      (escrever-resultados (dfs no algoritmo 'no-solucao-p 'gerar-sucessores (operadores) profundidade heuristica) path) (iniciar))
-     (T (escrever-resultados (funcall algoritmo no algoritmo 'no-solucao-p 'gerar-sucessores (operadores) heuristica) path)
+      (escrever-resultados (dfs no-inicial algoritmo 'no-solucao-p 'gerar-sucessores (operadores) profundidade heuristica) path) (iniciar))
+     (T (escrever-resultados (funcall algoritmo no-inicial algoritmo 'no-solucao-p 'gerar-sucessores (operadores) heuristica) path)
         (iniciar)))))
 
 ;; Função que apresenta a escolha do problema a resolver
@@ -247,7 +247,7 @@
               (tabuleiroC (list (ler-tabuleiro-ficheiro file) 'C 300))
               (tabuleiroD (list (ler-tabuleiro-ficheiro file) 'D 425))
               (tabuleiroE (list (ler-tabuleiro-ficheiro file) 'E 525))
-              (tabuleiroF (list (gerar-problema-f) 'F 1000))
+              (tabuleiroF (list (ler-tabuleiro-ficheiro file) 'F 1000))
               ;;(tabuleiroG (list (ler-tabuleiro-ficheiro file) 'G 'NIL')) ;Problema G da avaliacao oral
               
               )
@@ -363,9 +363,9 @@
 ;; Função para terminar o programa
 (defun menu-sair ()
   "Permite mostrar mensagem quando o programa termina"
-  (format T "~%")	
-  (format T "~@T~@T~@T~@T+============================+~%")
-  (format T "~@T~@T~@T~@T|     PROGRAMA TERMINADO     |~%")
-  (format T "~@T~@T~@T~@T+============================+~%"))
+  (format t "~%")	
+  (format t "~@T~@T~@T~@T+============================+~%")
+  (format t "~@T~@T~@T~@T|     PROGRAMA TERMINADO     |~%")
+  (format t "~@T~@T~@T~@T+============================+~%"))
 
 
