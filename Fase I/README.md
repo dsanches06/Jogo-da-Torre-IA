@@ -2,4 +2,4 @@
 Projecto IA Época especial 2020 - Jogo da Torre
 
 
-![](fase I/screenshots/rook.png)
+![](screenshots/rook.png)

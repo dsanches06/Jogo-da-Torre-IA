@@ -13,14 +13,14 @@
 ;;------------------------------------------------------------------------------------------------------
 ;;   TABULEIRO 7x7
 ;;------------------------------------------------------------------------------------------------------
-(defun gerar-problema()
-  "Função que gera o problema F com peça na posicao x:0, y:3"
-  (substituir 0 3 (gerar-tabuleiro) 'T))
-
-(defun gerar-tabuleiro ()
+(defun tabuleiro-inicial ()
   "Função auxiliar para gerar e baralhar o tabuleiro com casas de 0 a 77
  sem numero com 0, 8 , 9 e ainda sem peça colocada"
-  (tabuleiro-aleatorio (baralhar (lista-sem-numero-089))))
+  (let* ((tabuleiro  (tabuleiro-aleatorio (baralhar (lista-sem-numero-089))))
+         ;;inserir peça jogador 1 na posicao A1 - G1
+         (tabuleiro-aux (substituir 0 0 tabuleiro -1))
+         ;;inserir peça jogador 2 na posicao A7 - G7
+         (tabuleiro-final (substituir 6 6 tabuleiro-aux -2))) tabuleiro-final))
 
 (defun linha (x tabuleiro)
   "Função que recebe um índice e o tabuleiro e retorna uma lista que representa esta linha"
@@ -57,7 +57,7 @@
    remover-se em que a função deve remover o número da lista igual ao encontrado aleatoriamente"
   (let ((n (nth (random (length lista)) lista)))
     (cond 
-     ((= (funcall *fn*) (length lista)) lista) ;;condição de paragem se for 99
+     ((= (funcall *fn*) (length lista)) lista) ;;condição de paragem se for 77
      (T (baralhar (setf lista (cons n (remover-se #'(lambda (x) (= x n)) lista))))))))
 
 (defun primeiro-digito (n)
@@ -85,7 +85,8 @@
          (w (write-to-string  x)) 
          (z (write-to-string y)))
     (cond
-     ((let ((str (concatenate 'string z w))) (parse-integer str)))
+     ((let ((str (concatenate 'string z w))) 
+        (parse-integer str)))
      (T NIL))))
 
 (defun maior-numero-lista (tabuleiro)
@@ -109,6 +110,7 @@
                  (cons inicio posicao)
                (posicao-aux casa (rest tabuleiro) (1+ inicio)))))))
 
+
 ;;------------------------------------------------------------------------------------------------------
 ;;   GERAR LISTA SEM NUMEROS COM  0, 8  e 9
 ;;------------------------------------------------------------------------------------------------------
@@ -116,7 +118,7 @@
   "Função que recebe um numero e verifica se existe numero com 0, 8 e 9 e retorna t ou nil"
   (let ((x (ultimo-digito n)))
     (cond
-     ((or (= x 0) (= x 8) (= x 9)) T)
+     ((or (zerop x) (= x 8) (= x 9)) T)
      (T NIL))))
 
 (defun lista-sem-numero-089 ()
@@ -131,7 +133,7 @@
 (defun regra-numero-duplo (pontos tabuleiro)
   "Se uma Torre for colocado numa casa com um número duplo, por exemplo 66, então deve ser removido o número duplo de maior valor"
   (cond 
-   ((= pontos 0) tabuleiro)
+   ((zerop pontos) tabuleiro)
    (T (let* ((lista-nova (apply #'append tabuleiro));;converter o tabuleiro 7x7 em uma única lista
              (lista-max (loop for n in lista-nova ;;percorrer a nova lista
                             if (and (numberp n)(equal (digitos-iguais n) 'T))
@@ -149,7 +151,7 @@
   "Se a casa escolhida tiver um número com dois dígitos diferentes,
 por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabuleiro"
   (cond 
-   ((= pontos 0) tabuleiro)
+   ((zerop pontos) tabuleiro)
    (T (let* ((simetrico-pontos-destino (simetrico pontos));;numero simetricos de pontos
              (posicao-simetrico (obter-posicao tabuleiro simetrico-pontos-destino)));;obter a posicao do numero simetrico
         (cond
@@ -159,50 +161,75 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
 ;;------------------------------------------------------------------------------------------------------
 ;;   CONSTRUTOR PRINCIPAL
 ;;------------------------------------------------------------------------------------------------------
-(defun criar-no (estado pecas &optional (profundidade 0) (heuristica 0) (f 0) (pai NIL))
-  "Cria uma lista que representa um no que tem um estado. Este no pode tambem ter uma profundidade, heuristica, f e um no que o gerou"
-  (list estado pecas profundidade heuristica f pai))
+(defun criar-no (estado peca-jogador1 peca-jogador2 tipo-jogador &optional (profundidade 0) (tipo-no 'MAX) (no-pai NIL))
+  "Cria uma lista que representa um no que tem um estado."
+  (list estado peca-jogador1 peca-jogador2 tipo-jogador profundidade tipo-no no-pai))
 
 ;;------------------------------------------------------------------------------------------------------
 ;;   METODOS SELECTORES (GETTERS)
 ;;------------------------------------------------------------------------------------------------------
-(defun no-estado (no)
+(defun get-no-estado (no)
   "Função que retorna o estado de no"
   (first no))
 
-(defun no-peca (no)
-  "Função que retorna o numero de pontos da peça de no"
+(defun get-peca-jogador1 (no)
+  "Função que retorna o numero de pontos da peça do jogador"
   (second no))
 
-(defun no-profundidade (no)
-  "Funcao que retorna a profundidade de um no"
+(defun get-peca-jogador2 (no)
+  "Função que retorna o numero de pontos da peça do jogador 2"
   (third no))
 
-(defun no-heuristica (no)
-  "Funcao que retorna a heuristica de um no"
+(defun get-tipo-jogador (no)
+  "Função que retorna o tipo de jogador"
   (fourth no))
 
-(defun no-f (no)
-  "Funcao que retorna o f de um no"
+(defun get-no-profundidade (no)
+  "Funcao que retorna a profundidade de um no"
   (fifth no))
 
-(defun no-pai (no)
-  "Funcao que retorna o no pai"
+(defun get-tipo-no (no)
+  "Funcao que retorna a heuristica de um no"
   (sixth no))
 
-(defun no-raiz (no)
+(defun get-no-pai (no)
+  "Funcao que retorna o no pai"
+  (seventh no))
+
+(defun get-no-raiz (no)
   "Função que retorna a nó raiz"
   (cond 
-   ((null (no-pai no)) no)
-   (T (no-raiz (no-pai no)))))
+   ((null (get-no-pai no)) no)
+   (T (get-no-raiz (get-no-pai no)))))
 
 ;;------------------------------------------------------------------------------------------------------
 ;;   CONSTRUTOR NOVA PEÇA - METODOS SELECTORES(GETTERS) -  MODIFICADRES (SETTERS)
 ;;------------------------------------------------------------------------------------------------------
-(defun set-pontos-peca (peca ponto)
-  "Função que recebe um no e valor de pontos, obtem a peca e retorna nova lista
-   com pontos atualizados"
-  (list (first peca) (+ (second peca) ponto)))
+(defun set-pontos-jogador1 (no pontos jogador)
+  "Função que recebe um no e valor de pontos, obtem a peca e retorna nova lista com pontos atualizados"
+  (let ((peca-jogador1 (get-peca-jogador1 no)))
+    (if (and (= jogador 1) (not (null (first peca-jogador1))) (not (null (second peca-jogador1))) (not (null pontos)))
+        (list (first peca-jogador1) (+ (second peca-jogador1) pontos))
+      peca-jogador1)))
+
+(defun set-pontos-jogador2 (no pontos jogador)
+  "Função que recebe um no e valor de pontos, obtem a peca e retorna nova lista com pontos atualizados"
+  (let ((peca-jogador2 (get-peca-jogador2 no)))
+     (if (and (= jogador 2) (not (null (first peca-jogador2))) (not (null (second peca-jogador2))) (not (null pontos))) 
+        (list (first peca-jogador2) (+ (second peca-jogador2) pontos))
+      peca-jogador2)))
+
+(defun trocar-jogador (no)
+  "Função que recebe um no e troca o jogador"
+  (cond
+   ((= (get-tipo-jogador no) 1) 2)
+   (T 1)))
+
+(defun trocar-no-tipo (no)
+  "Função que recebe um no e troca o jogador"
+  (cond
+   ((equal (get-tipo-no no) 'MAX) 'MIN)
+   (T 'MAX)))
 
 ;;------------------------------------------------------------------------------------------------------
 ;;   OPERAÇÃO SUBSTITUIR PEÇA NO TABULEIRO
@@ -218,39 +245,42 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
 (defun substituir-posicao-aux (y tabuleiro &optional (valor 'NIL))
   "Função que recebe um índice, uma lista e um valor (por default o valor é NIL) e substitui pelo valor pretendido nessa posição."
   (cond
-   ((= y 0) (cons valor (cdr tabuleiro)))
+   ((zerop y) (cons valor (cdr tabuleiro)))
    (T (cons (car tabuleiro) (substituir-posicao-aux (- y 1) (cdr tabuleiro) valor)))))
 
 ;;------------------------------------------------------------------------------------------------------
-;;   PEÇA CAVALO ("T")
+;;   PEÇA
 ;;------------------------------------------------------------------------------------------------------
-(defun obter-posicao (tabuleiro &optional (casa 'T))
+(defun obter-posicao (tabuleiro jogador)
   "Função que recebe o elemento e tabuleiro devolvendo a posição (i j) 
    caso não se encontre no tabuleiro deverá ser retornado NIL"
-  (posicao-aux casa tabuleiro))
+  (cond 
+   ((= jogador 1) (posicao-aux -1 tabuleiro));;peca -1
+   ((= jogador 2) (posicao-aux -2 tabuleiro));; peça -2
+   (T (posicao-aux jogador tabuleiro))))
 
 (defun mover-peca (x y dx dy tabuleiro)
   (let* ((novo-tabuleiro (copy-tree tabuleiro))
          (novo-x (+ x dx))
          (novo-y (+ y dy))
          (peca (nth y (nth x tabuleiro)))
-         (pontos-destino (nth novo-y (nth novo-x tabuleiro))))
+         (pontos-destino (nth novo-y (nth novo-x novo-tabuleiro))))
     
     (when (posicao-validap novo-x novo-y)
       (setf (nth y (nth x novo-tabuleiro)) NIL
         (nth novo-y (nth novo-x novo-tabuleiro)) peca)
       (if (equal (digitos-iguais pontos-destino) 'T);;se for digitos iguais
           (regra-numero-duplo pontos-destino novo-tabuleiro);;regra duplo
-        (regra-simetrico pontos-destino novo-tabuleiro)))));;regra simetrico
+        (regra-simetrico pontos-destino novo-tabuleiro)))));;se não, regra simetrico
 
 ;;------------------------------------------------------------------------------------------------------
 ;;   VALIDAÇÃO DE CASAS E MOVIMENTOS
 ;;------------------------------------------------------------------------------------------------------
 (defun casa-disponivel (x y tabuleiro)
   "Retorna o valor presente nessa célula do tabuleiro"	
-  (let ((disponivel (celula x y tabuleiro)))
+  (let ((casa (celula x y tabuleiro)))
     (cond 
-     ((numberp disponivel) T)
+     ((and (numberp casa) (/= casa -1) (/= casa -2)) T)
      (T NIL))))
 
 ;;------------------------------------------------------------------------------------------------------
@@ -290,7 +320,9 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
 
 (defun posicao-validap (x y)
   "Funçao para verificar se as coordenadas são validas"
-  (and (>= x 0) (>= y 0) (< x 7) (< y 7)))
+  (cond
+   ((or (null x) (null y)) NIL)
+   (T (and (>= x 0) (>= y 0) (< x 7) (< y 7)))))
 
 (defun jogadas-possiveis (x y tabuleiro) 
   "Funcao que determina todas as jogadas possiveis para um tipo de 
@@ -298,83 +330,60 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
   (let (result)
     (dolist (mov '(CIMA BAIXO ESQUERDA DIREITA) result)
       (dotimes (n 7)
-        (cond 
-         ((or (equal mov 'CIMA) (equal mov 'BAIXO)) 
-          (when (VERTICAL x y n mov tabuleiro) ;se movimento for valido na vertical
-            (push (list n mov) result)))
-         (T (or (equal mov 'CIMA) (equal mov 'BAIXO)) 
-            (when (HORIZONTAL x y n mov tabuleiro) ;se movimento for valido na horizontal
-              (push (list n mov) result))))))))
+        (if (>= n 1)
+            (cond 
+             ((or (equal mov 'CIMA) (equal mov 'BAIXO)) 
+              (when (VERTICAL x y n mov tabuleiro) ;se movimento for valido na vertical
+                (push (list n mov) result)))
+             (T (or (equal mov 'ESQUERDA) (equal mov 'DIREITA)) 
+                (when (HORIZONTAL x y n mov tabuleiro) ;se movimento for valido na horizontal
+                  (push (list n mov) result)))))))))
+
+(defun obter-operadores (jogada)
+ "Função que retorna uma jogada e retorna o seu operador"
+  (cond 
+      ((or (equal (second jogada) 'CIMA) (equal (second jogada) 'BAIXO)) 'VERTICAL)
+      (T (or (equal (second jogada) 'ESQUERDA) (equal (second jogada) 'DIREITA)) 'HORIZONTAL)))
+
 ;;------------------------------------------------------------------------------------------------------
 ;;  SUCESSORES
 ;;------------------------------------------------------------------------------------------------------
-(defun gerar-sucessores (no operadores algoritmo &optional (heuristica NIL) (profundidade NIL))
-  "Funcao que devolve a lista de todos os sucessores de um determinado no passado como argumento"
-  (cond
-   ((equal algoritmo 'dfs)
-    (cond
-     ((>= (no-profundidade no) profundidade) NIL);So se aplica os sucessores caso a profundidade do no seja inferior a profundidade maxima
-     (T (remover-jogadas-invalidas (apply #'append (mapcar #'(lambda (operador)
-                                                               (aplicar-operador-no no operador heuristica)) operadores))))))
-   (T (remover-jogadas-invalidas (apply #'append (mapcar #'(lambda (operador)
-                                                             (aplicar-operador-no no operador heuristica)) operadores))))))
-(defun aplicar-operador-no (no operador heuristica)
-  "Funcao que aplica apenas um operador a um determinado no. Consoante o operador passado por argumento esta funcao ira 
-   determinar as jogadas possiveis para esse operador e ira criar um no (um sucessor) para cada uma dessas jogadas possives" 
-  (let* ((tabuleiro (first (no-estado no)))
-         (problema (second (no-estado no)))
-         (objetivo (third (no-estado no)))
-         (jogadas-possiveis (obter-jogadas tabuleiro)))
-    (cond
-     ((= (length jogadas-possiveis) 0) NIL);; se não houver jogada, sai
-     (T (mapcar #'(lambda (jogada) 
-                    (let* ((posicao-peca (obter-posicao tabuleiro))
-                           (posicao-destino (posicao-destino posicao-peca jogada))
-                           (pontos-destino (pontos-destino posicao-destino tabuleiro))
-                           (estado (list (funcall operador (first posicao-peca) (second posicao-peca) (first jogada) (second jogada) tabuleiro) problema objetivo))
-                           (pecas (set-pontos-peca (no-peca no) pontos-destino))
-                           (nova-heuristica (funcall heuristica (no-estado no) pecas))
-                           (profundidade (1+ (no-profundidade no)))
-                           (custo (+ profundidade nova-heuristica)))
-                      ;(format t "~%Novo Estado:")
-                      ;(mostrar-tabuleiro (first estado)) 
-                      (criar-no estado pecas profundidade nova-heuristica custo no))) jogadas-possiveis)))))
 
-(defun obter-jogadas (tabuleiro)
+(defun aplicar-operador-no (no jogada)
+ "Função que testa jogada para criação de novo nó"
+  (let* ((tabuleiro (get-no-estado no))
+         (posicao-peca (obter-posicao tabuleiro (get-tipo-jogador no)))
+         (posicao-destino (posicao-destino posicao-peca jogada))
+         (pontos-destino (pontos-destino posicao-destino tabuleiro))
+         (estado (funcall (obter-operadores jogada) (first posicao-peca) (second posicao-peca) (first jogada) (second jogada) tabuleiro))
+         (peca-jogador1 (set-pontos-jogador1 no pontos-destino (get-tipo-jogador no)))
+         (peca-jogador2 (set-pontos-jogador2 no pontos-destino (get-tipo-jogador no)))
+         (profundidade (1+ (get-no-profundidade no))))
+    (criar-no estado peca-jogador1 peca-jogador2 (trocar-jogador no) profundidade (trocar-no-tipo no) no)))
+
+(defun obter-jogadas (tabuleiro jogador)
   "Função para obter a posicao da peça no tabuleiro e retorna as jogadas possiveis"
-  (let* ((posicao-peca (obter-posicao tabuleiro))
-         (jogadas-possiveis (jogadas-possiveis (first posicao-peca) (second posicao-peca) tabuleiro)))
+  (let* ((posicao-peca-jogador (obter-posicao tabuleiro jogador))
+         (jogadas-possiveis (jogadas-possiveis (first posicao-peca-jogador) (second posicao-peca-jogador) tabuleiro)))         
     jogadas-possiveis))
 
-(defun melhor-jogada (jogadas)
-  "Função que recebe uma lista de jogadas e retorna uma jogada aleatoria"
-  (cond 
-   ((null jogadas) NIL)
-   (T (let* ((jogada (subseq (jogada-aleatoria jogadas) 0 1))
-             (movimento (second (first jogada))))
-        (cond 
-         ((or (equal movimento 'CIMA) (equal movimento 'BAIXO))
-          (list 'VERTICAL jogada));;cria uma lista com operador vertical + jogada-selecionada         
-         (T (or (equal movimento 'ESQUERDA) (equal movimento 'DIREITA))
-            (list 'HORIZONTAL jogada)))))));;cria uma lista com operador horizontal + jogada-selecionada
-
-(defun jogada-aleatoria (jogadas)
-  "Função que recebe uma lista de jogadas e escolhe uma jogada aleatoria"
-  (cond 
-   ((or (null jogadas) (null (cdr jogadas))) jogadas)
-   (T (let* ((i (random (length jogadas)))
-             (x (nth i jogadas)))
-        (cons x (jogada-aleatoria (append (subseq jogadas 0 i)
-                                          (subseq jogadas (1+ i)))))))))
-
-(defun posicao-destino (peca jogada)
+(defun posicao-destino (jogador jogada)
   "Função que recebe uma jogada e retorna a posicao de destino"
   (cond 
-   ((equal (second jogada) 'CIMA) (list (- (first peca)  (first jogada)) (+ (second peca) 0)))
-   ((equal (second jogada) 'BAIXO) (list (+ (first peca) (first jogada)) (+ (second peca) 0)))
-   ((equal (second jogada) 'ESQUERDA) (list (+ (first peca) 0) (- (second peca)  (first jogada))))
-   ((equal (second jogada) 'DIREITA) (list (+ (first peca) 0) (+ (second peca)  (first jogada))))
+   ((equal (second jogada) 'CIMA) (list (- (first jogador)  (first jogada)) (+ (second jogador) 0)))
+   ((equal (second jogada) 'BAIXO) (list (+ (first jogador) (first jogada)) (+ (second jogador) 0)))
+   ((equal (second jogada) 'ESQUERDA) (list (+ (first jogador) 0) (- (second jogador)  (first jogada))))
+   ((equal (second jogada) 'DIREITA) (list (+ (first jogador) 0) (+ (second jogador)  (first jogada))))
    (T NIL)))
+
+(defun calcular-posicao-destino (no jogador)
+  (let* ((tabuleiro (get-no-estado no))
+         (jogadas-possiveis (obter-jogadas tabuleiro jogador)))
+    (cond
+     ((zerop (length jogadas-possiveis)) NIL)
+     (T (mapcar #'(lambda (jogada) 
+                    (let* ((posicao-peca (obter-posicao tabuleiro jogador))
+                           (posicao-destino (posicao-destino posicao-peca jogada))) posicao-destino)) jogadas-possiveis)))))
 
 (defun pontos-destino (destino tabuleiro)
   "Função que recebe uma jogada e retorna o numero de pontos da casa destino"
@@ -392,65 +401,9 @@ por exemplo 57, então, em consequência, o número simétrico 75 é apagado do tabul
 ;;------------------------------------------------------------------------------------------------------
 ;;   SOLUÇAO, OBJECTIVO e CALCULAR PONTOS
 ;;------------------------------------------------------------------------------------------------------
-(defun no-solucao-p (no)
-  "O estado final é atingido quando a Torre chega a uma casa que lhe permite obter uma pontuação igual
-  ou superior ao objetivo definido; Se não for possível atingir o objetivo, o programa deverá informar o 
-  utilizador de que o problema não tem solução;"
-  (let* ((pecas-no (no-peca no))
-         (pai (no-pai no)))
-    (cond  
-     ((and (not (null pecas-no)) (not (null pai))
-           ;;numeros de pontos de no for maior que ou igual ao objetivo
-           (>= (second pecas-no) (third (first pai)))) T)
-     (T NIL))))
 
 (defun solucao-nao-encontrada () ;função que mostra uma mensagem de solução não encontrada
   (format T "~%")
   (format T "~@T~@T~@T~@T +=========================================+~%")
   (format T "~@T~@T~@T~@T |         SOLUÇÃO NÃO ENCONTRADA!!!       |~%")
   (format T "~@T~@T~@T~@T +=========================================+~%~%"))	
-
-;;------------------------------------------------------------------------------------------------------
-;;   FUNÇÕES DE CÁLCULO DE HEURISTICAS
-;;------------------------------------------------------------------------------------------------------
-(defun pontos-atingir-objetivo (objetivo &optional (peca NIL)) 
-  "Função que retorna o número de pontos que faltam para atingir o valor definido como objetivo"
-  (let ((pontos (- objetivo (second peca)))) pontos))
-
-(defun pontos-medio-casa-tabuleiro (tabuleiro)
-  "Função que calcula a média por casa dos pontos que constam no tabuleiro"
-  (cond
-   ((null tabuleiro) 0);;não existe tabuleiro
-   ((= (length (obter-jogadas tabuleiro))  0) 0);;não existe jogada
-   (T (let* ((lista (apply #'append tabuleiro));;converter o tabuleiro 7x7 em uma única lista
-             (nova-lista (loop for n in lista ;;percorrer a lista
-                             if (numberp n) collect n));;colecionar apenas casas que tem numero de pontos
-             (total-casas (length nova-lista));;calcula o numero total de casas da nova lista
-             (soma (apply #'+ nova-lista));;faz a soma dos elementos na lista
-             (media (round (/ soma total-casas))));;calcula a media arredondada
-        media))));;retorna a media
-
-(defun sem-heuristica (no &optional (peca NIL))
-  "Função com uma heurística sem significado para uso nas pesquisas cegas"
-  (cond 
-   ((or (null no) (null peca)) 0)
-   (T 0)))
-
-(defun heuristica1 (no &optional (peca NIL))
-  "Calcula a heuristica h(x) = o(x)/m(x) em que
-  o(x) é o número de pontos que faltam para atingir o valor definido como objetivo
-  m(x) é a média por casa dos pontos que constam no tabuleiro x"
-  (let* ((tabuleiro (no-estado no))
-         (objetivo (third no))
-         (pontos-atingir (pontos-atingir-objetivo objetivo peca))
-         (pontos-medio (pontos-medio-casa-tabuleiro tabuleiro))
-         (heuristica (round (/ pontos-atingir pontos-medio)))) heuristica))
-
-(defun heuristica2 (no &optional (peca NIL))
-  "Calcula a heuristica2 para trabalhar com numeros de jogadas possiveis da peça no tabuleiro"
-  (cond
-   ((null peca) 0);;se não existe peça, heuristica 0
-   (T (let* ((tabuleiro (no-estado no))
-             (jogadas (obter-jogadas tabuleiro))
-             (heuristica (length jogadas))) heuristica))))
-

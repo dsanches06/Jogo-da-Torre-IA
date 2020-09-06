@@ -3,7 +3,6 @@
 ;===========================================================================
 ;;;; projeto.lisp
 ;;;; Disciplina de IA - 2019 / 2020
-;;;; Autor:
 ;===========================================================================
 ;       FUNÇÕES PARA MOSTRAR TABULEIROS E SEUS MOVIMENTOS
 ;===========================================================================
@@ -32,6 +31,7 @@
   (loop for i in no
       if (and (not (numberp i)) (not (equal (first i) 'BRANCA)) )  
       collect i))
+
 (defun obter-listas (no)
   "Função para recebe um no e retorna a lista de listas"
   (loop for i in no
@@ -48,10 +48,6 @@
 ;===========================================================================
 ;       FUNÇÕES DE LEITURA E ESCRITA
 ;===========================================================================
-(defun diretoria-atual ()
-  "Define o caminho para os ficheiros do projeto a partir da raiz"
-  (let ((path "C:\\Users\\Toshiba\\Downloads\\Dados\\IA\\2019_2020\\ProjetoIA\\Fase I\\"))
-    path))
 
 (defun escrever-resultados (resultado path)
   "Funcao que ira imprimir o resultado para o ecra de uma forma mais clara bem como escrever as estatisticas num ficheiro estatisticas.dat"
@@ -95,7 +91,7 @@
         (format T "~@T~@T~@T~@T   Fator de Ramificação: ~A ~%" (fator-ramificacao profundidade nos-gerados))
         (format T "~@T~@T~@T~@T   Tempo em Segundos: ~A ~%" (- (get-universal-time) tempo))
         (format T "~@T~@T~@T~@T   No Pai:")
-        (mostrar-tabuleiro (first pai))
+        (format T "~@T~@T~@T~@T   ~% ~A~%" no-objetivo)
         (format T "~%~@T~@T~@T~@T   +===========================+~%")
         (format T "~@T~@T~@T~@T   |     FIM DA ESTATISTICA    |~%")
         (format T "~@T~@T~@T~@T   +===========================+~%~%")
@@ -149,8 +145,7 @@
           (format file "~@T~@T~@T~@T   Penetrancia: ~A ~%" (penetrancia profundidade nos-gerados))
           (format file "~@T~@T~@T~@T   Fator de Ramificacao: ~A ~%" (fator-ramificacao profundidade nos-gerados))
           (format file "~@T~@T~@T~@T   Tempo em Segundos: ~A ~%" (- (get-universal-time) tempo))
-          (format file "~@T~@T~@T~@T   No Pai:")
-          (mostrar-tabuleiro (first pai) file)
+          (format file "~@T~@T~@T~@T   No Pai: ~%~A" (no-raiz pai))
           (format file "~%~@T~@T~@T~@T +===========================+~%")
           (format file "~@T~@T~@T~@T |     FIM DA ESTATISTICA    |~%")
           (format file "~@T~@T~@T~@T +===========================+~%"))))
@@ -159,54 +154,52 @@
 ;===========================================================================
 ;       FUNÇÕES PARA INTER-ACÇÃO DO UTILIZADOR
 ;===========================================================================
-(defun iniciar ()
-  "Permite para iniciar o programa"
-  (let ((path (ler-path)))
+(defun jogar (&optional (caminho nil))
+  "Permite para jogar o programa"
+  (let ((path (ler-path caminho)))
     (carregar-ficheiros path)))
 
-(defun ler-path (&optional (path (diretoria-atual))) 
+(defun ler-path (path) 
   "Função para ler o diretorio onde se encontra os ficheiros do projeto" 
   (cond 
-   ((null path) (format T "~@T~@T~@T~@T Introduza o caminho ate ao diretorio do projeto:~%")     
+   ((null path) (format T "~%Introduza o caminho ate ao diretorio do projeto:~%")     
     (ler-path (read-line)))
    (T path)))
 
 (defun carregar-ficheiros (path)
   "Permite que compila e carregar os ficheiros do projeto para ser executados"
   (progn 
-    ;(compile-file (concatenate 'string path "procura.lisp"))
-    ;(compile-file (concatenate 'string path "puzzle.lisp"))
+    (compile-file (concatenate 'string path "procura.lisp"))
+    (compile-file (concatenate 'string path "puzzle.lisp"))
     (load (concatenate 'string path "puzzle.ofasl"))
     (load (concatenate 'string path "procura.ofasl"))
     (menu-principal path)))
 
 ;;; Função menu principal
 (defun menu-principal (path)
-  "Apresenta o menu iniciar com as opções"
+  "Apresenta o menu jogar com as opções"
   (progn
     (format T "~%")
     (format T "~@T~@T~@T~@T +=============================+~%")
     (format T "~@T~@T~@T~@T |         PROJECTO IA         |~%")
     (format T "~@T~@T~@T~@T +=============================+~%")
-    (format T "~@T~@T~@T~@T |     1 - Resolver Puzzle     |~%")
-    (format T "~@T~@T~@T~@T |     2 - Regras do Puzzle    |~%")   
-    (format T "~@T~@T~@T~@T |     0 - Sair                |~%")
+    (format T "~@T~@T~@T~@T |     1 - Resolver Puzzle     |~%")   
+    (format T "~@T~@T~@T~@T |     2 - Sair                |~%")
     (format T "~@T~@T~@T~@T +=============================+~%")
     (format T "~@T~@T~@T~@T Escolha: ")
     (let ((opcao (read)))
       (format T "~@T~@T~@T~@T       ESCOLHEU OPÇÃO ~A ~%" opcao)
       (cond
-       ((not (numberp opcao)) (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [0, 1, 2] ~%") (menu-principal path))
+       ((not (numberp opcao)) (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [1, 2] ~%") (menu-principal path))
        ((= opcao 1) (resolver-puzzle path))
-       ((= opcao 2) (mostrar-regras path))
-       ((= opcao 0) (menu-sair) NIL)
-       (T (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [0, 1, 2] ~%") (menu-principal path)))))) 
+       ((= opcao 2) (menu-sair) NIL)
+       (T (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [1, 2] ~%") (menu-principal path)))))) 
 
 
 (defun resolver-puzzle (path)
-  "Funcao que ira iniciar a aplicacao, pedindo ao utilizador para que escolha o tabuleiro que pretenda que seja o no inicial, o algoritmo que pretende utilizar e a profundidade maxima que pretende para o algoritmo dfs"
+  "Funcao que ira jogar a aplicacao, pedindo ao utilizador para que escolha o tabuleiro que pretenda que seja o no inicial, o algoritmo que pretende utilizar e a profundidade maxima que pretende para o algoritmo dfs"
   (let* ((tabuleiro (ler-tabuleiro path))
-         (algoritmo (ler-algoritmo (first tabuleiro) path (second tabuleiro)))
+         (algoritmo (ler-algoritmo (first tabuleiro) path (second tabuleiro) (third tabuleiro)))
          (profundidade (cond
                         ((equal algoritmo 'dfs) (ler-profundidade))
                         (T NIL)))
@@ -218,9 +211,10 @@
          (no-inicial (criar-no tabuleiro pecas-no-raiz 0 heuristica-no-raiz heuristica-no-raiz NIL)))
     (cond
      ((equal algoritmo 'dfs)
-      (escrever-resultados (dfs no-inicial algoritmo 'no-solucao-p 'gerar-sucessores (operadores) profundidade heuristica) path) (iniciar))
+      (escrever-resultados (dfs no-inicial algoritmo 'no-solucao-p 'gerar-sucessores (operadores) profundidade heuristica) path) (jogar path))
      (T (escrever-resultados (funcall algoritmo no-inicial algoritmo 'no-solucao-p 'gerar-sucessores (operadores) heuristica) path)
-        (iniciar)))))
+        (jogar path)))))
+
 
 ;; Função que apresenta a escolha do problema a resolver
 (defun ler-tabuleiro (path)
@@ -247,12 +241,9 @@
               (tabuleiroC (list (ler-tabuleiro-ficheiro file) 'C 300))
               (tabuleiroD (list (ler-tabuleiro-ficheiro file) 'D 425))
               (tabuleiroE (list (ler-tabuleiro-ficheiro file) 'E 525))
-              (tabuleiroF (list (ler-tabuleiro-ficheiro file) 'F 1000))
-              ;;(tabuleiroG (list (ler-tabuleiro-ficheiro file) 'G 'NIL')) ;Problema G da avaliacao oral
-              
-              )
+              (tabuleiroF (list (ler-tabuleiro-ficheiro file) 'F 1000)))
           (cond
-           ((not (numberp opcao)) (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [0, 1, 2, 3, 4, 5, 6, 7] ~%") 
+           ((not (numberp opcao)) (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [1, 2, 3, 4, 5, 6, 7] ~%") 
             (ler-tabuleiro path))
            
            ((= opcao 1) tabuleiroA)
@@ -261,8 +252,8 @@
            ((= opcao 4) tabuleiroD)
            ((= opcao 5) tabuleiroE)
            ((= opcao 6) tabuleiroF)
-           ;((= opcao 7) tabuleiroG)
-           (T (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [0, 1, 2, 3, 4, 5, 6, 7] ~%") (ler-tabuleiro path))))))))	
+           ((= opcao 7) (list (ler-tabuleiroG) 'G (ler-objetivo-tabuleiroG))) ;Problema G da avaliacao oral
+           (T (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [1, 2, 3, 4, 5, 6, 7] ~%") (ler-tabuleiro path))))))))
 
 ;; ler-tabuleiro-ficheiro
 (defun ler-tabuleiro-ficheiro (file)
@@ -273,22 +264,38 @@
      ((not (equal linha 'break)) (cons linha (ler-tabuleiro-ficheiro file)))
      ((equal linha 'break) NIL))))		
 
+
+(defun ler-tabuleiroG (&optional (tabuleiro nil)) 
+  "Função para ler o tabuleiro G na discussao oral" 
+  (cond 
+   ((null tabuleiro) (format T "~%Insira o tabuleiro: ")     
+    (ler-tabuleiroG (read)))
+   (T tabuleiro)))
+
+(defun ler-objetivo-tabuleiroG (&optional (pontos nil)) 
+  "Função para ler o numero de pontos a atingir" 
+  (cond 
+   ((null pontos) (format T "~%~%Insira o numero de pontos: ")
+    (ler-objetivo-tabuleiroG (read)))
+   (T pontos)))
+	
 ;;; Função que apresenta o objetivo do problema escolhido
-(defun mostrar-objetivo (problema) 
+(defun mostrar-objetivo (problema objetivo) 
   "Permite mostrar o objetivo do problema para escrita em consola e file"
   (cond
-   ((equal problema 'A) (format t "~%      --- PROBLEMA ~A: Objectivo 100 pontos ---~%" problema))
-   ((equal problema 'B) (format t "~%      --- PROBLEMA ~A: Objectivo 200 pontos ---~%" problema))
-   ((equal problema 'C) (format t "~%      --- PROBLEMA ~A: Objectivo 300 pontos ---~%" problema))
-   ((equal problema 'D) (format t "~%      --- PROBLEMA ~A: Objectivo 425 pontos ---~%" problema))
-   ((equal problema 'E) (format t "~%      --- PROBLEMA ~A: Objectivo 525 pontos ---~%" problema))
-   ((equal problema 'F) (format t "~%      --- PROBLEMA ~A: Objectivo 1000 pontos ---~%" problema))))		
+   ((equal problema 'A) (format t "~%      --- PROBLEMA ~A: Objectivo ~A pontos ---~%" problema objetivo))
+   ((equal problema 'B) (format t "~%      --- PROBLEMA ~A: Objectivo ~A pontos ---~%" problema objetivo))
+   ((equal problema 'C) (format t "~%      --- PROBLEMA ~A: Objectivo ~A pontos ---~%" problema objetivo))
+   ((equal problema 'D) (format t "~%      --- PROBLEMA ~A: Objectivo ~A pontos ---~%" problema objetivo))
+   ((equal problema 'E) (format t "~%      --- PROBLEMA ~A: Objectivo ~A pontos ---~%" problema objetivo))
+   ((equal problema 'F) (format t "~%      --- PROBLEMA ~A: Objectivo ~A pontos ---~%" problema objetivo))
+   ((equal problema 'G) (format t "~%      --- PROBLEMA ~A: Objectivo ~A pontos ---~%" problema objetivo))))		
 
 ;;; Função que apresenta a escolha do algoritimo a usar
-(defun ler-algoritmo (tabuleiro path problema)
+(defun ler-algoritmo (tabuleiro path problema objetivo)
   "Permite escolher o algoritimo para resolver o problema"
   (progn
-    (mostrar-objetivo problema)
+    (mostrar-objetivo problema objetivo)
     (mostrar-tabuleiro tabuleiro)
     (format T "~%")
     (format T "~@T~@T~@T~@T +=========================================+~%")
@@ -304,13 +311,13 @@
       (format T "~@T~@T~@T~@T       ESCOLHEU OPÇÃO ~A ~%" opcao)
       (cond
        ((not (numberp opcao)) (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [0, 1, 2, 3, 4] ~%") 
-        (ler-algoritmo tabuleiro path problema))
+        (ler-algoritmo tabuleiro path problema objetivo))
        ((= opcao 1) 'bfs)
        ((= opcao 2) 'dfs)
        ((= opcao 3) 'A*)
        ((= opcao 4) 'IDA*)
        (T (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [0, 1, 2, 3, 4] ~%") 
-          (ler-algoritmo tabuleiro path problema))))))
+          (ler-algoritmo tabuleiro path problema objetivo))))))
 
 ;; ler-profundidade
 (defun ler-profundidade (&optional (resposta NIL))
@@ -347,19 +354,6 @@
        (T (format T "~%~@T~@T~@T~@T ERRO: Introduza um numéro válido [0,1, 2] ~%") 
           (ler-heuristica path))))))
 
-;; Função para mostrar as regras do puzzle
-(defun mostrar-regras (path)
-  "Mostra as regras do puzzle" 
-  (format T "~%")
-  (format T "
-    +========================= Regras do Puzzle ===========================================+
-    |                                                                                      |
-    |                                                                                      |
-    |                                                                                      |
-    +======================================================================================+~%")
-  (format T "~%")
-  (menu-principal path))
-
 ;; Função para terminar o programa
 (defun menu-sair ()
   "Permite mostrar mensagem quando o programa termina"
@@ -367,5 +361,7 @@
   (format t "~@T~@T~@T~@T+============================+~%")
   (format t "~@T~@T~@T~@T|     PROGRAMA TERMINADO     |~%")
   (format t "~@T~@T~@T~@T+============================+~%"))
+
+
 
 
