@@ -1,0 +1,904 @@
+
+---------------------------------- Gerado em "11/09/2020 17:43:48" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (20 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (10 NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL 37 NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (20 NIL NIL NIL NIL NIL T) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (10 NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL 37 NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (10 NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL 37 NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL 37 NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+     --- NO OBJETIVO ---
+
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL 37 NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: BFS 
+       Problema: G 
+       Objetivo: 103 
+       Peca: BRANCA 
+       Pontuacao: 107 
+       Profundidade: 3 
+       Heuristica: 0 
+       Custo Uniforme: 3 
+       Nos Gerados: 9 
+       Nos Expandidos: 5 
+       Penetrancia: 0.33333334 
+       Fator de Ramificacao: 1.6608009 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((20 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (10 NIL NIL NIL NIL NIL NIL) (NIL NIL NIL 37 NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) G 103)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:18:04" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL 54 T NIL 36 77) 
+      (NIL 72 13 NIL 50 73 NIL) 
+      (60 NIL 65 64 63 NIL 62) 
+      (41 74 75 76 57 47 14) 
+      (NIL NIL 66 67 69 37 11) 
+      (26 71 NIL 44 31 70 NIL) 
+      (66 45 NIL 33 NIL 27 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL 54 NIL NIL 36 77) 
+      (NIL 72 13 NIL 50 73 NIL) 
+      (60 NIL 65 T 63 NIL 62) 
+      (41 74 75 76 57 47 14) 
+      (NIL NIL 66 67 69 37 11) 
+      (26 71 NIL 44 31 70 NIL) 
+      (66 45 NIL 33 NIL 27 22) 
+
+      (55 NIL 54 NIL NIL NIL 77) 
+      (NIL 72 13 NIL 50 73 NIL) 
+      (60 NIL 65 NIL T NIL 62) 
+      (41 74 75 76 57 47 14) 
+      (NIL NIL 66 67 69 37 11) 
+      (26 71 NIL 44 31 70 NIL) 
+      (66 45 NIL 33 NIL 27 22) 
+
+      (55 NIL 54 NIL NIL NIL 77) 
+      (NIL 72 13 NIL 50 73 NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 74 75 76 57 47 14) 
+      (NIL NIL 66 67 T 37 11) 
+      (26 71 NIL 44 31 70 NIL) 
+      (66 45 NIL 33 NIL 27 22) 
+
+      (55 NIL 54 NIL NIL NIL NIL) 
+      (NIL 72 13 NIL 50 73 NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 74 75 76 57 47 14) 
+      (NIL NIL T 67 NIL 37 11) 
+      (26 71 NIL 44 31 70 NIL) 
+      (66 45 NIL 33 NIL 27 22) 
+
+      (55 NIL 54 NIL NIL NIL NIL) 
+      (NIL 72 13 NIL 50 73 NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 74 T 76 NIL 47 14) 
+      (NIL NIL NIL 67 NIL 37 11) 
+      (26 71 NIL 44 31 70 NIL) 
+      (66 45 NIL 33 NIL 27 22) 
+
+      (55 NIL 54 NIL NIL NIL NIL) 
+      (NIL 72 13 NIL 50 73 NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 T NIL 76 NIL NIL 14) 
+      (NIL NIL NIL 67 NIL 37 11) 
+      (26 71 NIL 44 31 70 NIL) 
+      (66 45 NIL 33 NIL 27 22) 
+
+      (55 NIL 54 NIL NIL NIL NIL) 
+      (NIL T 13 NIL 50 73 NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 NIL NIL 76 NIL NIL 14) 
+      (NIL NIL NIL 67 NIL 37 11) 
+      (26 71 NIL 44 31 70 NIL) 
+      (66 45 NIL 33 NIL NIL 22) 
+
+      (55 NIL 54 NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 T NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 NIL NIL 76 NIL NIL 14) 
+      (NIL NIL NIL 67 NIL NIL 11) 
+      (26 71 NIL 44 31 70 NIL) 
+      (66 45 NIL 33 NIL NIL 22) 
+
+      (55 NIL 54 NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 NIL NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 NIL NIL 76 NIL NIL 14) 
+      (NIL NIL NIL 67 NIL NIL 11) 
+      (26 71 NIL 44 31 T NIL) 
+      (66 45 NIL 33 NIL NIL 22) 
+
+      (55 NIL 54 NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 NIL NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 NIL NIL 76 NIL NIL 14) 
+      (NIL NIL NIL 67 NIL NIL 11) 
+      (26 T NIL 44 31 NIL NIL) 
+      (66 45 NIL 33 NIL NIL 22) 
+
+      (55 NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 NIL NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 NIL NIL 76 NIL NIL 14) 
+      (NIL NIL NIL 67 NIL NIL 11) 
+      (26 NIL NIL 44 31 NIL NIL) 
+      (66 T NIL 33 NIL NIL 22) 
+
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 NIL NIL) 
+      (60 NIL 65 NIL NIL NIL 62) 
+      (41 NIL NIL 76 NIL NIL 14) 
+      (NIL NIL NIL 67 NIL NIL 11) 
+      (26 NIL NIL 44 31 NIL NIL) 
+      (T NIL NIL 33 NIL NIL 22) 
+
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 NIL NIL) 
+      (T NIL 65 NIL NIL NIL 62) 
+      (41 NIL NIL 76 NIL NIL 14) 
+      (NIL NIL NIL 67 NIL NIL 11) 
+      (26 NIL NIL 44 31 NIL NIL) 
+      (NIL NIL NIL 33 NIL NIL 22) 
+
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 NIL NIL) 
+      (NIL NIL 65 NIL NIL NIL 62) 
+      (T NIL NIL 76 NIL NIL NIL) 
+      (NIL NIL NIL 67 NIL NIL 11) 
+      (26 NIL NIL 44 31 NIL NIL) 
+      (NIL NIL NIL 33 NIL NIL 22) 
+
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 NIL NIL) 
+      (NIL NIL 65 NIL NIL NIL 62) 
+      (NIL NIL NIL T NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 11) 
+      (26 NIL NIL 44 31 NIL NIL) 
+      (NIL NIL NIL 33 NIL NIL 22) 
+
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 NIL NIL) 
+      (NIL NIL 65 NIL NIL NIL 62) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 11) 
+      (26 NIL NIL T 31 NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+     --- NO OBJETIVO ---
+
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL 13 NIL 50 NIL NIL) 
+      (NIL NIL 65 NIL NIL NIL 62) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 11) 
+      (26 NIL NIL T 31 NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: A* 
+       Problema: F 
+       Objetivo: 1000 
+       Peca: BRANCA 
+       Pontuacao: 1029 
+       Profundidade: 16 
+       Heuristica: -1 
+       Custo Uniforme: 15 
+       Nos Gerados: 481 
+       Nos Expandidos: 85 
+       Penetrancia: 0.033264034 
+       Fator de Ramificacao: 1.3533058 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL 54 T NIL 36 77) (NIL 72 13 NIL 50 73 NIL) (60 NIL 65 64 63 NIL 62) (41 74 75 76 57 47 14) (NIL NIL 66 67 69 37 11) (26 71 NIL 44 31 70 NIL) (66 45 NIL 33 NIL 27 22)) F 1000)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:20:18" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL 74 75 76 57 47 NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL 74 75 T 57 47 NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+      (55 NIL NIL NIL NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL 74 NIL NIL T 47 NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+      (55 NIL NIL NIL NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL T NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- NO OBJETIVO ---
+
+      (55 NIL NIL NIL NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL T NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: BFS 
+       Problema: B 
+       Objetivo: 200 
+       Peca: BRANCA 
+       Pontuacao: 207 
+       Profundidade: 3 
+       Heuristica: 0 
+       Custo Uniforme: 3 
+       Nos Gerados: 14 
+       Nos Expandidos: 9 
+       Penetrancia: 0.21428572 
+       Fator de Ramificacao: 2.0000038 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL 74 75 76 57 47 NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) B 200)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:33:06" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL T) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- NO OBJETIVO ---
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: BFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) A 100)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:34:38" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL T) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- NO OBJETIVO ---
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: BFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) A 100)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:44:29" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL T) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- NO OBJETIVO ---
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: DFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) A 100)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:45:22" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL 74 75 76 57 47 NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL 74 75 T 57 47 NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+      (55 NIL NIL NIL NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL 74 NIL NIL T 47 NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+      (55 NIL NIL NIL NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL T NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- NO OBJETIVO ---
+
+      (55 NIL NIL NIL NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL T NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- RESULTADOS ---
+       Algoritmo: DFS 
+       Problema: B 
+       Objetivo: 200 
+       Peca: BRANCA 
+       Pontuacao: 207 
+       Profundidade: 3 
+       Heuristica: 0 
+       Custo Uniforme: 3 
+       Nos Gerados: 14 
+       Nos Expandidos: 11 
+       Penetrancia: 0.21428572 
+       Fator de Ramificacao: 2.0000038 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL 74 75 76 57 47 NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) B 200)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:46:11" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL T) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- NO OBJETIVO ---
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: DFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) A 100)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:46:35" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL T) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- NO OBJETIVO ---
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: DFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) A 100)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:47:40" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL T) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- NO OBJETIVO ---
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: DFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) A 100)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:47:46" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL T) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- NO OBJETIVO ---
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: DFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) A 100)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
+
+---------------------------------- Gerado em "11/09/2020 18:48:46" ------------------------------------------------
+
+     +===========================+
+     |    ESTATISTICAS GERAIS    |
+     +===========================+
+
+     --- NO INICIAL ---
+
+      (55 NIL NIL T NIL NIL 77) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (66 NIL NIL NIL NIL NIL 22) 
+
+     --- MOVIMENTOS ---
+
+      (55 NIL NIL NIL NIL NIL T) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL 22) 
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- NO OBJETIVO ---
+
+      (T NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+      (NIL NIL NIL NIL NIL NIL NIL) 
+
+     --- RESULTADOS ---
+       Algoritmo: DFS 
+       Problema: A 
+       Objetivo: 100 
+       Peca: BRANCA 
+       Pontuacao: 132 
+       Profundidade: 2 
+       Heuristica: 0 
+       Custo Uniforme: 2 
+       Nos Gerados: 4 
+       Nos Expandidos: 2 
+       Penetrancia: 0.5 
+       Fator de Ramificacao: 1.5615578 
+       Tempo em Segundos: 0 
+       No Pai: 
+(((55 NIL NIL T NIL NIL 77) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (NIL NIL NIL NIL NIL NIL NIL) (66 NIL NIL NIL NIL NIL 22)) A 100)
+     +===========================+
+     |     FIM DA ESTATISTICA    |
+     +===========================+
